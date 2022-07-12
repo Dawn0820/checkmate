@@ -17,7 +17,11 @@
 	 -->
 	
 	<mappers>
+<<<<<<< HEAD
 		<mapper resource="/mappers/sharingInformation-mapper.xml"/>
+=======
+		<mapper resource="/mappers/member-mapper.xml"/>
+>>>>>>> refs/remotes/origin/Jaeseop
 	</mappers>
 
 

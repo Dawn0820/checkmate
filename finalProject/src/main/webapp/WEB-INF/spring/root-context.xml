@@ -11,7 +11,11 @@
 	</bean>	
 	
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+<<<<<<< HEAD
 		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+=======
+		<property name="configLocation" value="classpath:mybatis-config.xml"/> <!-- classpath : resources를 의미 -->
+>>>>>>> refs/remotes/origin/Jaeseop
 		<property name="dataSource" ref="dataSource"/>
 	</bean> 
 	
