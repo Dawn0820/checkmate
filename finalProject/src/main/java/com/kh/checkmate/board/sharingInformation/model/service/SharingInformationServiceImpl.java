@@ -31,30 +31,39 @@ public class SharingInformationServiceImpl implements SharingInformationService{
 		return sid.selectList(sqlSession,pi);
 	}
 
+	
+	
+	////////////////////////////////////////////////////////
 	@Override
 	public int insertBoard(SharingInformation b) {
 		
-		return sid.insertBoard(sqlSession,b);
+//		return sid.insertBoard(sqlSession,b);
+		return 0;
 	}
 
 	@Override
 	public int increaseCount(int boardNo) {
-		return sid.increaseCount(sqlSession,boardNo);
+//		return sid.increaseCount(sqlSession,boardNo);
+		return 0;
 	}
 
 	@Override
 	public SharingInformation selectBoard(int boardNo) {
-		return sid.selectBoard(sqlSession,boardNo);
+		SharingInformation SharingInformation = new SharingInformation();
+//		return sid.selectBoard(sqlSession,boardNo);
+		return SharingInformation;
 	}
 
 	@Override
 	public int deleteBoard(int boardNo) {
-		return sid.deleteBoard(sqlSession,boardNo);
+//		return sid.deleteBoard(sqlSession,boardNo);
+		return 0;
 	}
 
 	@Override
 	public int updateBoard(SharingInformation b) {
-		return sid.updateBoard(sqlSession,b);
+//		return sid.updateBoard(sqlSession,b);
+		return 0;
 	}
 
 //	@Override
