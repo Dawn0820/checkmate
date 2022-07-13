@@ -12,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap type="SharingInformation" id="siResultSet">
 		<result column="INFORMATION_NO" property="informationNo"/>
 		<result column="USER_NO" property="userNo"/>
+		<result column="USER_ID" property="userId"/>
 		<result column="INFORMATION_CATEGORY" property="informationCategory"/>
 		<result column="INFORMATION_TITLE" property="informationTitle"/>
 		<result column="INFORMATION_CONTENT" property="informationContent"/>
@@ -23,12 +24,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectList" resultMap="siResultSet">
 		SELECT INFORMATION_NO,
 		       USER_NO,
+               USER_ID,
 		       INFORMATION_CATEGORY,
 		       INFORMATION_TITLE,
 		       INFORMATION_CONTENT,
 		       INFORMATION_DATE,
 		       INFORMATION_VIEW
 		FROM INFORMATION_TB
+        JOIN MEMBER M USING(USER_NO)
 		WHERE INFORMATION_STATUS = 'Y'
 		ORDER BY INFORMATION_DATE DESC
 	</select>
@@ -52,12 +55,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 				) -->
 <!-- 	</insert> -->
 	
-<!-- 	<update id="increaseCount" parameterType="_int"> -->
-<!-- 		UPDATE BOARD -->
-<!-- 		SET COUNT = COUNT + 1 -->
-<!-- 		WHERE STATUS = 'Y' -->
-<!-- 		AND BOARD_NO = #{boardNo} -->
-<!-- 	</update> -->
+	<update id="increaseCount" parameterType="_int">
+		UPDATE BOARD
+		SET COUNT = COUNT + 1
+		WHERE STATUS = 'Y'
+		AND BOARD_NO = #{boardNo}
+	</update>
 	
 <!-- 	<select id="selectBoard" resultMap="boardResultSet"> -->
 <!-- 		SELECT BOARD_NO -->

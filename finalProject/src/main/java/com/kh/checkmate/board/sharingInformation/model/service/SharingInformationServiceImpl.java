@@ -42,9 +42,8 @@ public class SharingInformationServiceImpl implements SharingInformationService{
 	}
 
 	@Override
-	public int increaseCount(int boardNo) {
-//		return sid.increaseCount(sqlSession,boardNo);
-		return 0;
+	public int increaseCount(int sino) {
+		return sid.increaseCount(sqlSession,sino);
 	}
 
 	@Override

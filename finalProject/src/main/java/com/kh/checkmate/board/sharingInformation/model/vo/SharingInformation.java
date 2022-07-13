@@ -5,6 +5,7 @@ import java.sql.Date;
 public class SharingInformation {
 	private int informationNo;	//	INFORMATION_NO	NUMBER
 	private int userNo;	//	USER_NO	NUMBER
+	private String userId;
 	private String informationCategory;	//	INFORMATION_CATEGORY	VARCHAR2(1 BYTE)
 	private String informationTitle;	//	INFORMATION_TITLE	VARCHAR2(100 BYTE)
 	private String informationContent;	//	INFORMATION_CONTENT	VARCHAR2(4000 BYTE)
@@ -15,11 +16,13 @@ public class SharingInformation {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public SharingInformation(int informationNo, int userNo, String informationCategory, String informationTitle,
-			String informationContent, Date informationDate, int informationView, String informationStatus) {
+	public SharingInformation(int informationNo, int userNo, String userId, String informationCategory,
+			String informationTitle, String informationContent, Date informationDate, int informationView,
+			String informationStatus) {
 		super();
 		this.informationNo = informationNo;
 		this.userNo = userNo;
+		this.userId = userId;
 		this.informationCategory = informationCategory;
 		this.informationTitle = informationTitle;
 		this.informationContent = informationContent;
@@ -38,6 +41,12 @@ public class SharingInformation {
 	}
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public String getInformationCategory() {
 		return informationCategory;
@@ -77,9 +86,10 @@ public class SharingInformation {
 	}
 	@Override
 	public String toString() {
-		return "sharingInformation [informationNo=" + informationNo + ", userNo=" + userNo + ", informationCategory="
-				+ informationCategory + ", informationTitle=" + informationTitle + ", informationContent="
-				+ informationContent + ", informationDate=" + informationDate + ", informationView=" + informationView
-				+ ", informationStatus=" + informationStatus + "]";
+		return "SharingInformation [informationNo=" + informationNo + ", userNo=" + userNo + ", userId=" + userId
+				+ ", informationCategory=" + informationCategory + ", informationTitle=" + informationTitle
+				+ ", informationContent=" + informationContent + ", informationDate=" + informationDate
+				+ ", informationView=" + informationView + ", informationStatus=" + informationStatus + "]";
 	}
+	
 }

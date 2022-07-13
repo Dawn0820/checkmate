@@ -25,4 +25,8 @@ public class SharingInformationDao {
 		
  		return (ArrayList)sqlSession.selectList("sharingInformationMapper.selectList",null,rowBounds);
 	}
+
+	public int increaseCount(SqlSessionTemplate sqlSession, int sino) {
+		return sqlSession.update("sharingInformationMapper.increaseCount",sino);
+	}
 }
