@@ -96,7 +96,7 @@
 									<li><a href="#">Deep Drop Down 4</a></li>
 									<li><a href="#">Deep Drop Down 5</a></li>
 								</ul></li>
-							<li><a href="#">Drop Down 2</a></li>
+							<li><a href="calender.ca">시험 일정</a></li>
 							<li><a href="#">Drop Down 3</a></li>
 							<li><a href="#">Drop Down 4</a></li>
 						</ul></li>
@@ -154,7 +154,6 @@
 		</div>
 	</header>
 	
-    
 	
 	<!-- 얼럿 -->
 	<c:if test="${not empty alertMsg}">
