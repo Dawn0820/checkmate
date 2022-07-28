@@ -116,8 +116,8 @@
 
     <br><br><br><br><br>
     
-    <form action="insert.me" method="post" enctype="multipart/form-data">
-    
+    <form action="naverInsert.me" method="post" enctype="multipart/form-data">
+    	<input type="hidden" name="userEmail" value="${userEmail}">
     	<div align="center"><H3>프로필 사진</H3></div>
     	<div id="image_container" align="center"><img id="userProfile" src="./resources/images/basic.jpg"></div>
     	<br>
@@ -125,33 +125,6 @@
 		<input class="userOriginProfile" type="file" name="profile" id="userOriginProfile" onchange="setThumbnail(this);">
 		</div>		
     	<br><br>
-    	
-    	
-        <div class="input-box" align="center">
-            <input id="userId" type="text" name="userId" placeholder="아이디" required>
-            <label for="userId">아이디</label>
-            <button type="button" id="idBtn" class="checkBtn">중복 확인</button>
-        </div>
-        <div class="input-box" align="center">
-	        <span class="idCheck">6~16자 영문,숫자를 사용하세요.</span>
-        </div>
-
-        <div class="input-box">
-            <input id="userPwd" type="password" name="userPw" placeholder="비밀번호" required>
-            <label for="userPwd">비밀번호</label>
-        </div>
-        <div class="input-box">
-	        <span class="pwdCheck1">8~16자 영문,숫자,특수문자를 사용하세요.</span>
-        </div>
-
-        <div class="input-box">
-            <input id="userPwd2" type="password" name="userPwd2" placeholder="비밀번호 확인" required>
-            <label for="userPwd2">비밀번호 확인</label>
-        </div>     
-        <div class="input-box">
-	        <span class="pwdCheck2">동일한 비밀번호를 다시 입력해주세요.</span>
-        </div>
-
         <div class="input-box">
             <input id="userName" type="text" name="userName" placeholder="이름">
             <label for="userName">이름</label>
@@ -166,10 +139,7 @@
 	        <span class="nickCheck">3~10자를 사용하세요.</span>
         </div>
 
-		<div class="input-box">
-            <input id="userEmail" type="email" name="userEmail" placeholder="이메일" required>
-            <label for="userEmail">이메일</label>
-        </div>
+
 
         <div class="input-box" align="center">
             <input id="addr1" type="text" readonly="readonly" placeholder="우편번호">
@@ -186,23 +156,7 @@
             <input placeholder="상세주소"  id="addr3" type="text"/>
             <label for="addr3">상세주소</label>           
         </div>
-        <input type="hidden" name="userAddress" id="userAddress"/>
-        
-                
-         <div class="input-box">
-            <input id="userPhone" type="text" name="userPhone" placeholder="전화번호(숫자만 입력)">
-            <label for="userPhone">전화번호(숫자만 입력)</label>
-            <button type='button' id="phoneBtn" class="checkBtn" onclick="userPhoneCheck();">인증번호 보내기</button>
-        </div>
-        <div class="input-box">
-	        <span class="successPhoneChk">전화번호 입력후 인증번호 보내기를 해주십시오.</span>
-        </div>
-
-        <div class="input-box">
-            <input id="phoneCheck" type="text"  placeholder="인증번호" disabled required>
-            <label for="phoneCheck">인증번호</label>
-            <button type='button' id="phoneBtn2" class="checkBtn">본인인증</button>
-        </div>
+        <input type="hidden" name="userAddress" id="userAddress"/>        
         
         <div align="center">
             <input type="submit" value="가입" id="confirmBtn"/>
@@ -231,129 +185,6 @@
 	};
 	
 
-    //아이디 파트
-	$("#userId").on('keyup',function(){
-		
-		var regId = /^[a-zA-Z][0-9a-zA-Z]{5,15}$/;
-		var id = $("#userId").val();
-		if(id==""){
-			$(".idCheck").text("6~16자 영문,숫자를 사용하세요.");
-			$(".idCheck").css("color","black");
-			
-		}else if(regId.test(id)){
-			$(".idCheck").text("사용 가능한 아이디입니다. 중복 확인을 해주세요.");
-			$(".idCheck").css("color","green");
-		}else{
-			$(".idCheck").text("사용이 불가능한 아이디입니다.");
-			$(".idCheck").css("color","red");
-		}
-	});
-    
-    $("#idBtn").click(function(){
-    	
-    	$.ajax({
-    		url : "idcheck.me",
-    		data : {
-    			userId : $("#userId").val()
-    		},
-    		success : function(result){
-    			console.log(result)
-    			if(result=="N"){
-    				alert("사용 불가능한 아이디입니다. 다시 입력해 주세요");
-    				$("#userId").val('');
-    				$("#userId").focus();
-    				$(".idCheck").text("6~16자 영문,숫자를 사용하세요.");
-    				$(".idCheck").css("color","black");
-    			}else{
-    				alert("사용 가능한 아이디입니다.");
-    				$("#userId").attr("readonly","true");
-    			}
-    		},
-    		error : function(result){
-    			console.log(result)
-    			console.log("오류");
-    		}
-    	})
-    	
-    });
-
-	
-    
-    //비밀번호 파트
-	$("#userPwd").on('keyup',function(){		
-		var reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
-        var pw1 = $("#userPwd").val();
-        
-		if(pw1 == ""){
-			$(".pwdCheck1").text("8~16자 영문,숫자,특수문자를 사용하세요.");
-			$(".pwdCheck1").css("color","black");
-		}else if(reg.test(pw1)){	
-			$(".pwdCheck1").text("사용 가능한 비밀번호입니다.");
-			$(".pwdCheck1").css("color","green");
-		}else{			
-			$(".pwdCheck1").text("사용 불가능한 비밀번호 입니다. 8~16자 영문,숫자,특수문자를 사용하세요.");
-			$(".pwdCheck1").css("color","red");
-		}
-	});
-	
-	$("#userPwd2").on('keyup',function(){
-		
-		var pw1 = $("#userPwd").val();
-		var pw2 = $("#userPwd2").val();
-		
-
-	    if(pw1==pw2 && pw1 != ""){
-			console.log("true");
-			$(".pwdCheck2").text("비밀번호가 일치합니다.");
-			$(".pwdCheck2").css("color","green");
-		}else if(pw1 != pw2){
-			$(".pwdCheck2").text("비밀번호를 다시 확인해주세요.");
-			$(".pwdCheck2").css("color","red");
-			console.log("false");			
-		}else if(pw1 == ""){
-			$(".pwdCheck2").text("동일한 비밀번호를 다시 입력해주세요.");
-			$(".pwdCheck2").css("color","black");
-		}
-		
-	});
-		
-	//휴대전화 파트
-// 	var code2 = "";
-// 	function userPhoneCheck(){
-// 		var phone = $("#userPhone").val();
-// 		$.ajax({
-// 			type:"GET",
-// 			url:"phoneCheck?phone="+phone,
-// 			cache : false,
-// 			success : function(data){
-// 				console.log(data);
-// 				if(data == "error"){
-// 					alert("휴대폰 번호가 올바르지 않습니다.")
-// 					$(".successPhoneChk").text("유효한 번호를 입력해주세요.");
-// 					$(".successPhoneChk").css("color","red");
-// 					$("#userPhone").attr("autofocus",true);
-// 				}else{
-// 					alert("인증번호 발송이 완료되었습니다.\n휴대폰에서 인증번호를 확인 해주세요.");
-// 					$("#phoneCheck").attr("disabled",false);        		
-// 	        		$(".successPhoneChk").text("인증번호가 발송되었습니다. 본인인증을 해주세요.");
-// 	        		$(".successPhoneChk").css("color","green");
-// 	        		$("#userPhone").attr("readonly",true);
-// 	        		code2 = data;
-// 				}
-// 			}
-// 		});
-// 	};
-	
-// 	$("#phoneBtn2").click(function(){
-// 		if($("#phoneCheck").val() == code2){
-// 			alert("인증번호가 일치합니다.");
-// 			$("#phoneCheck").attr("readonly",true);
-// 		}else{
-// 			alert("인증번호를 다시 확인해주세요.").css("color","red");
-// 			$("#phoneCheck").attr("autofocus",true);
-// 		}
-// 	});
-	
 	//닉네임파트
 	$("#userNick").on('keyup',function(){
 		console.log("실행");
@@ -432,19 +263,10 @@
     
     //최종 회원가입 파트
     $("#confirmBtn").click(function(){
-    	var reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
-    	
-    	
-    	
-        if($("#userId").prop("readonly")==false && $("#userNick").prop("readonly")==false){
-            alert("아이디와 닉네임 중복확인을 해주세요.");
+
+        if($("#userNick").prop("readonly")==false){
+            alert("닉네임 중복확인을 해주세요.");
             return false;
-        }else if($("#userPwd").val()!=$("#userPwd2").val()){
-        	alert("비밀번호를 다시 확인해주세요.");
-        	return false;
-        }else if($("#userPwd").val().length<1 || reg.test($("#userPwd").val())==false){
-        	alert("비밀번호를 다시 확인해주세요.");
-        	return false;
         }else if($("#userName").val().length<1){
         	alert("이름을 입력해주세요.");
         	return false;
@@ -452,13 +274,6 @@
         	alert("주소를 다시 확인해주세요.");
         	return false;
         }
-//         else if($("#phoneCheck").prop("readonly")==false){
-//             alert("휴대폰 인증이 필요합니다.");       
-//             return false;
-//         }else if($("#userPhone").prop("readonly")==false){
-//         	alert("휴대폰 인증이 필요합니다.");       
-//             return false;
-//         }
         else{
         	alert("환영합니다.");    
         	var address = $('#userAddress').val();

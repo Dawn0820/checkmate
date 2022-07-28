@@ -20,6 +20,10 @@ public class StudyGroupDao {
 	public int insertStudyGroup(SqlSessionTemplate sqlSession, StudyGroup sg) {
 		return sqlSession.insert("studyGroupMapper.insertStudyGroup", sg);
 	}
+	
+	public int updateStudyGroup(SqlSessionTemplate sqlSession, StudyGroup sg) {
+		return sqlSession.update("studyGroupMapper.updateStudyGroup", sg);
+	}
 
 	// 구대영
 	public StudyGroup studyGroupDetail(SqlSessionTemplate sqlSession, int sgNo) {
@@ -39,7 +43,8 @@ public class StudyGroupDao {
 		return (ArrayList) sqlSession.selectList("studyGroupMapper.studyGroupList", null, rowBounds);
 	}
 
-	public int addNickToStudyGroup(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		return sqlSession.update("studyGroupMapper.addNickToStudyGroup", map);
+	public StudyGroup studyGroupNoSelect(SqlSessionTemplate sqlSession, StudyGroup sg) {
+		return sqlSession.selectOne("studyGroupMapper.studyGroupNoSelect", sg);
 	}
+
 }

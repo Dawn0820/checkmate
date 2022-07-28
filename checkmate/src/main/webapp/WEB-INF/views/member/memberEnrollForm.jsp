@@ -168,6 +168,7 @@
 		<div class="input-box">
             <input id="userEmail" type="email" name="userEmail" placeholder="이메일" required>
             <label for="userEmail">이메일</label>
+            <button type="button" id="emailBtn" class="checkBtn">중복 확인</button>
         </div>
 
         <div class="input-box" align="center">
@@ -188,7 +189,7 @@
         <input type="hidden" name="userAddress" id="userAddress"/>
         
                 
-         <div class="input-box">
+        <div class="input-box">
             <input id="userPhone" type="text" name="userPhone" placeholder="전화번호(숫자만 입력)">
             <label for="userPhone">전화번호(숫자만 입력)</label>
             <button type='button' id="phoneBtn" class="checkBtn" onclick="userPhoneCheck();">인증번호 보내기</button>
@@ -317,41 +318,41 @@
 	});
 		
 	//휴대전화 파트
-// 	var code2 = "";
-// 	function userPhoneCheck(){
-// 		var phone = $("#userPhone").val();
-// 		$.ajax({
-// 			type:"GET",
-// 			url:"phoneCheck?phone="+phone,
-// 			cache : false,
-// 			success : function(data){
-// 				console.log(data);
-// 				if(data == "error"){
-// 					alert("휴대폰 번호가 올바르지 않습니다.")
-// 					$(".successPhoneChk").text("유효한 번호를 입력해주세요.");
-// 					$(".successPhoneChk").css("color","red");
-// 					$("#userPhone").attr("autofocus",true);
-// 				}else{
-// 					alert("인증번호 발송이 완료되었습니다.\n휴대폰에서 인증번호를 확인 해주세요.");
-// 					$("#phoneCheck").attr("disabled",false);        		
-// 	        		$(".successPhoneChk").text("인증번호가 발송되었습니다. 본인인증을 해주세요.");
-// 	        		$(".successPhoneChk").css("color","green");
-// 	        		$("#userPhone").attr("readonly",true);
-// 	        		code2 = data;
-// 				}
-// 			}
-// 		});
-// 	};
+	var code2 = "";
+	function userPhoneCheck(){
+		var phone = $("#userPhone").val();
+		$.ajax({
+			type:"GET",
+			url:"phoneCheck?phone="+phone,
+			cache : false,
+			success : function(data){
+				console.log(data);
+				if(data == "error"){
+					alert("휴대폰 번호가 올바르지 않습니다.")
+					$(".successPhoneChk").text("유효한 번호를 입력해주세요.");
+					$(".successPhoneChk").css("color","red");
+					$("#userPhone").attr("autofocus",true);
+				}else{
+					alert("인증번호 발송이 완료되었습니다.\n휴대폰에서 인증번호를 확인 해주세요.");
+					$("#phoneCheck").attr("disabled",false);        		
+	        		$(".successPhoneChk").text("인증번호가 발송되었습니다. 본인인증을 해주세요.");
+	        		$(".successPhoneChk").css("color","green");
+	        		$("#userPhone").attr("readonly",true);
+	        		code2 = data;
+				}
+			}
+		});
+	};
 	
-// 	$("#phoneBtn2").click(function(){
-// 		if($("#phoneCheck").val() == code2){
-// 			alert("인증번호가 일치합니다.");
-// 			$("#phoneCheck").attr("readonly",true);
-// 		}else{
-// 			alert("인증번호를 다시 확인해주세요.").css("color","red");
-// 			$("#phoneCheck").attr("autofocus",true);
-// 		}
-// 	});
+	$("#phoneBtn2").click(function(){
+		if($("#phoneCheck").val() == code2){
+			alert("인증번호가 일치합니다.");
+			$("#phoneCheck").attr("readonly",true);
+		}else{
+			alert("인증번호를 다시 확인해주세요.").css("color","red");
+			$("#phoneCheck").attr("autofocus",true);
+		}
+	});
 	
 	//닉네임파트
 	$("#userNick").on('keyup',function(){
@@ -369,6 +370,36 @@
 		}			
 	});
 	
+	//이메일파트
+	$("#emailBtn").click(function(){
+    	
+    	$.ajax({
+    		url : "emailCheck.me",
+    		data : {
+    			userEmail : $("#userEmail").val()
+    		},
+    		success : function(result){
+    			console.log(result)
+    			if(result=="N"){
+    				alert("사용중인 이메일입니다. 다시 입력해 주세요");
+    				$("#userEmail").val('');
+    				$("#userEmail").focus();
+
+    			}else{
+    				alert("사용 가능한 이메일입니다.");
+    				$("#userEmail").attr("readonly","true");
+    			}
+    		},
+    		error : function(result){
+    			console.log(result)
+    			console.log("오류");
+    		}
+    	})
+    	
+    });
+	
+	
+	//닉네임파트
 	$("#nickBtn").click(function(){
     	
     	$.ajax({
@@ -447,6 +478,9 @@
         }else if($("#userName").val().length<1){
         	alert("이름을 입력해주세요.");
         	return false;
+        }else if($("#userEmail").prop("readonly")==false){
+        	alert("이메일 중복확인을 해주세요");
+        	return false;
         }else if($("#addr1").val().length<1 || $("#addr3").val().length<1){
         	alert("주소를 다시 확인해주세요.");
         	return false;
@@ -469,4 +503,5 @@
     });
 </script>
 </body>
+<jsp:include page="../common/footer.jsp" />
 </html>
