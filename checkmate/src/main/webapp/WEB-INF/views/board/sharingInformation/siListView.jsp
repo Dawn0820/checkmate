@@ -64,7 +64,7 @@
 			<form class="row g-3 justify-content-center" action="search.si" method="get">
 				<div class="col-3" style="float: center;">
 					<input type="text" class="form-control" id="searchContent" name="searchContent"
-						placeholder="검색할 내용을 입력 해주세요.">
+						placeholder="검색할 제목을 입력 해주세요.">
 				</div>
 				<div class="col-auto">
 					<button type="submit" class="btn btn-secondary mb-3">검색</button>

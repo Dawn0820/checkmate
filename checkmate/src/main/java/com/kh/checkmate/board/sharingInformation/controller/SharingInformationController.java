@@ -76,8 +76,13 @@ public class SharingInformationController {
 		int result = sharingInformationService.increaseCount(informationNo);
 		
 		if (result > 0) {
+			ArrayList<SharingInformation> boardList = sharingInformationService.topBoard();
+			ArrayList<SharingInformation> replyList = sharingInformationService.topReply();
 			SharingInformation b = sharingInformationService.selectBoard(informationNo);
-			mv.addObject("b", b).setViewName("board/sharingInformation/siDetailView");
+			mv.addObject("b", b);
+			mv.addObject("boardList", boardList);
+			mv.addObject("replyList", replyList);
+			mv.setViewName("board/sharingInformation/siDetailView");
 		} else {
 			mv.addObject("errorMsg", "게시글 조회 실패").setViewName("common/errorPage");
 		}
@@ -147,7 +152,6 @@ public class SharingInformationController {
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 
 		ArrayList<SharingInformation> list = sharingInformationService.searchList(pi, b);
-		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 
@@ -180,7 +184,6 @@ public class SharingInformationController {
 	@RequestMapping(value="rlist.si",produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public String selectReplyList(int informationNo) {
-		
 		ArrayList<Reply> list = sharingInformationService.selectReplyList(informationNo);
 		return new Gson().toJson(list);
 	}
@@ -191,6 +194,8 @@ public class SharingInformationController {
 		Reply checkNo = sharingInformationService.checkNo(r);
 		r.setRefUno(checkNo.getRefUno());
 		int result = sharingInformationService.insertReply(r);
+		
+		int replyCount = sharingInformationService.replyCount(r);
 		
 		String ans="";
 		

@@ -17,12 +17,18 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="resources/css/styles.css" rel="stylesheet" />
 <style>
-ul{
-   list-style:none;
-   width: 100%;
-   text-align: left;
- }
-
+ul {
+	list-style: none;
+	width: 100%;
+	text-align: left;
+}
+img {
+ max-width: 100%;
+height: auto;
+}
+#reply {
+	word-break:break-all;
+}
 </style>
 </head>
 <body style="padding-top: 3rem;">
@@ -40,8 +46,8 @@ ul{
 						<h1 class="fw-bolder mb-1">${b.informationTitle}</h1>
 						<!-- Post meta content-->
 						<div class="text-muted fst-italic mb-2"
-							style="word-break: break-all;">Writer : ${b.userNick} | Views
-							: ${b.informationView} | Date : ${b.informationDate}</div>
+							style="word-break: break-all;">Writer : ${b.userNick} |
+							Views : ${b.informationView} | Date : ${b.informationDate}</div>
 						<div class="text-muted fst-italic mb-2"
 							style="word-break: break-all;">
 							첨부파일 : <a href="${b.informationChangeName }"
@@ -55,12 +61,12 @@ ul{
 					<section class="mb-5" style="padding: 10px;">
 						<p class="fs-5 mb-4">${b.informationContent}</p>
 					</section>
-					
+
 					<c:if test="${loginUser.userId eq b.userId}">
-					<div class="btn-group">
-						<a class="btn btn-secondary" onclick="postFormSubmit(1)">글수정</a> <a
-							class="btn btn-secondary" onclick="postFormSubmit(2)">글삭제</a>
-					</div>
+						<div class="btn-group">
+							<a class="btn btn-secondary" onclick="postFormSubmit(1)">글수정</a>
+							<a class="btn btn-secondary" onclick="postFormSubmit(2)">글삭제</a>
+						</div>
 					</c:if>
 				</article>
 				<form id="postForm" method="post">
@@ -82,10 +88,8 @@ ul{
 								return false;
 							}
 						}
-
 					}
 				</script>
-
 
 				<!-- Comments section-->
 				<section class="mb-5">
@@ -95,31 +99,29 @@ ul{
 							<form class="mb-4">
 								<div class="input-group mb-3">
 									<c:choose>
-  						  				<c:when test="${ not empty loginUser }">
-									<input type="text" class="form-control" id="insertContent"
-										placeholder="댓글을 입력 해주세요." aria-label="Recipient's username"
-										aria-describedby="button-addon2">
-									<button class="btn btn-outline-secondary" type="button"
-										id="button-addon2" onclick="addReply()">등록</button>
-									</c:when>
-  						  				<c:otherwise>	
-									<input type="text" class="form-control" id="insertContent"
-										placeholder="로그인이 필요합니다." aria-label="Recipient's username"
-										aria-describedby="button-addon2">
-									<button class="btn btn-outline-secondary disabled" type="button"
-										id="button-addon2" onclick="addReply()">등록</button>
-  						  				</c:otherwise>
+										<c:when test="${ not empty loginUser }">
+											<input type="text" class="form-control" id="insertContent"
+												placeholder="댓글을 입력 해주세요." aria-label="Recipient's username"
+												aria-describedby="button-addon2">
+											<button class="btn btn-outline-secondary" type="button"
+												id="button-addon2" onclick="addReply()">등록</button>
+										</c:when>
+										<c:otherwise>
+											<input type="text" class="form-control" id="insertContent"
+												placeholder="로그인이 필요합니다." aria-label="Recipient's username"
+												aria-describedby="button-addon2">
+											<button class="btn btn-outline-secondary disabled"
+												type="button" id="button-addon2" onclick="addReply()">등록</button>
+										</c:otherwise>
 									</c:choose>
 								</div>
 							</form>
-							<div id="reply">
-							
-							</div>
+							<div id="reply"></div>
 						</div>
 					</div>
 				</section>
 			</div>
-			
+
 			<script>
 		    	$(function(){
 		    		selectReplyList();
@@ -159,15 +161,12 @@ ul{
 		    				informationNo : ${b.informationNo}
 		    			},
 		    			success : function(result){
-		    				console.log(result);
-							
 							var resultStr="";
 							
 							for(var i=0; i<result.length;i++){
-								
 							resultStr+= "<div class=\"d-flex\">" +
 											"<div class=\"flex-shrink-0\">" + 
-												"<img class=\"rounded-circle\" src=\"https://dummyimage.com/50x50/ced4da/6c757d.jpg\" alt=\"...\" />" +
+												"<img class=\"rounded-circle\" src=\"" + result[i].replyProfile + "\" alt=\"...\" style=\"height:50px; width:50px;\"/>" +
 											"</div>" + 
 											
 											"<ul>" +
@@ -192,7 +191,6 @@ ul{
 							}
 						
 		    				$("#reply").html(resultStr);
-		    				$("#rcount").text(result.length);
 		    			},
 		    			error : function(){
 		    				console.log("통신실패");
@@ -201,44 +199,42 @@ ul{
 		    	}
 		    </script>
 
-
-
-
 			<!-- Side widgets-->
 			<div class="col-lg-4">
 				<!-- Search widget-->
-				<div class="card mb-4">
-					<div class="card-header">Search</div>
-					<div class="card-body">
-						<div class="input-group">
-							<input class="form-control" type="text"
-								placeholder="Enter search term..."
-								aria-label="Enter search term..."
-								aria-describedby="button-search" />
-							<button class="btn btn-primary" id="button-search" type="button">Go!</button>
+				<form action="search.si" method="get">
+					<div class="card mb-4">
+						<div class="card-header">Search</div>
+						<div class="card-body">
+							<div class="input-group">
+								<input class="form-control" type="text" id="searchContent"
+									name="searchContent" placeholder="검색할 제목을 입력 해주세요."
+									aria-describedby="button-search" />
+								<button class="btn btn-primary" id="button-search" type="submit">검색</button>
+							</div>
 						</div>
 					</div>
-				</div>
+				</form>
 				<!-- Categories widget-->
 				<div class="card mb-4">
-					<div class="card-header">Categories</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-sm-6">
-								<ul class="list-unstyled mb-0">
-									<li><a href="#!">Web Design</a></li>
-									<li><a href="#!">HTML</a></li>
-									<li><a href="#!">Freebies</a></li>
-								</ul>
-							</div>
-							<div class="col-sm-6">
-								<ul class="list-unstyled mb-0">
-									<li><a href="#!">JavaScript</a></li>
-									<li><a href="#!">CSS</a></li>
-									<li><a href="#!">Tutorials</a></li>
-								</ul>
-							</div>
-						</div>
+					<div class="card-header">가장 많이 본 게시글 TOP 5</div>
+					<div class="card-body" style="padding-bottom: 0px;">
+						<ol class="" style="text-align: left;">
+							<c:forEach var="bl" items="${boardList }">
+								<li><a href="detail.si?informationNo=${bl.informationNo}">${bl.informationTitle }</a></li>
+							</c:forEach>
+						</ol>
+					</div>
+				</div>
+
+				<div class="card mb-4">
+					<div class="card-header">댓글이 가장 많은 게시글 TOP 5</div>
+					<div class="card-body" style="padding-bottom: 0px;">
+						<ol class="" style="text-align: left;">
+							<c:forEach var="rl" items="${replyList }">
+								<li><a href="detail.si?informationNo=${rl.informationNo}">${rl.informationTitle }</a></li>
+							</c:forEach>
+						</ol>
 					</div>
 				</div>
 			</div>

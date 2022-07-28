@@ -130,21 +130,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap type="reply" id="replyResultSet">
 		<result column="USER_NICK" property="replyWriter"/>
 		<result column="USER_NO" property="refUno"/>
+		<result column="USER_CHANGE_PROFILE" property="replyProfile"/>
 		<result column="REPLY_CONTENT" property="replyContent"/>
 		<result column="REPLY_DATE" property="replyDate"/>
 	</resultMap>
 	
 	
 	<select id="jobSelectReplyList" resultMap="replyResultSet" parameterType="_int">
-<!-- 		SELECT REPLY_WRITER, -->
-<!-- 			   REPLY_CONTENT, -->
-<!-- 			   TO_CHAR(CREATE_DATE,'YYYY-MM-DD') AS "CREATE_DATE" -->
-<!-- 		FROM REPLY -->
-<!-- 		WHERE REF_BNO = #{boardNo} -->
-<!-- 		AND STATUS = 'Y' -->
-<!-- 		ORDER BY CREATE_DATE DESC -->
 		SELECT USER_NICK,
 			   REPLY_CONTENT,
+			   USER_CHANGE_PROFILE,
 			   TO_CHAR(REPLY_DATE,'YYYY-MM-DD HH24:MI:SS') AS "REPLY_DATE"
 		FROM INFORMATION_REPLY_TB
         JOIN MEMBER ON (USER_NO=REF_UNO)
@@ -155,8 +150,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="jobInsertReply" parameterType="reply">
-<!-- 		INSERT INTO REPLY (REPLY_NO,REPLY_CONTENT,REF_BNO,REPLY_WRITER) -->
-<!-- 		VALUES (SEQ_RNO.NEXTVAL,#{replyContent},#{refBoardNo},#{replyWriter}) -->
 		INSERT INTO INFORMATION_REPLY_TB (REPLY_NO,REPLY_CONTENT,REF_BNO,REF_UNO,REPLY_DATE,REPLY_STATUS)
 		VALUES (SEQ_REPLY_NO.NEXTVAL,#{replyContent},#{refBno},#{refUno},SYSDATE,DEFAULT)
 	</insert>
@@ -166,17 +159,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM MEMBER
 		WHERE USER_ID = #{replyWriter}
 	</select>
-<!-- 	<select id="selectTopList" resultMap="boardResultSet"> -->
-<!-- 		SELECT ROWNUM,B.* -->
-<!-- 		FROM -->
-<!--     	(SELECT BOARD_NO -->
-<!--     			,BOARD_TITLE -->
-<!--     			,BOARD_WRITER -->
-<!--     			,COUNT -->
-<!--     			,CREATE_DATE -->
-<!--     			,ORIGIN_NAME -->
-<!--         FROM BOARD  -->
-<!--         ORDER BY COUNT DESC) B  -->
-<!--         WHERE ROWNUM BETWEEN 1 AND 5 -->
-<!-- 	</select> -->
+	
+	<select id="jobTopBoard" resultMap="siResultSet">
+		SELECT ROWNUM,IF.*
+		FROM
+    	(SELECT INFORMATION_NO
+    			,INFORMATION_TITLE
+                ,INFORMATION_VIEW
+        FROM INFORMATION_TB
+        WHERE INFORMATION_CATEGORY = '취업정보공유'
+        AND INFORMATION_STATUS = 'Y'
+        ORDER BY INFORMATION_VIEW DESC) IF
+        WHERE ROWNUM BETWEEN 1 AND 5
+	</select>
+	
+		<select id="jobTopReply" resultMap="siResultSet">
+		SELECT ROWNUM,IF.*
+		FROM
+    	(SELECT INFORMATION_NO
+    			,INFORMATION_TITLE
+                ,INFORMATION_REPLY_COUNT
+        FROM INFORMATION_TB
+        WHERE INFORMATION_CATEGORY = '취업정보공유'
+        AND INFORMATION_STATUS = 'Y'
+        ORDER BY INFORMATION_REPLY_COUNT DESC) IF
+        WHERE ROWNUM BETWEEN 1 AND 5
+	</select>
+	
+	<update id="jobReplyCount">
+	UPDATE INFORMATION_TB
+	SET INFORMATION_REPLY_COUNT = INFORMATION_REPLY_COUNT + 1
+	WHERE INFORMATION_STATUS = 'Y'
+	AND INFORMATION_NO = #{refBno}
+	</update>
 </mapper>

@@ -77,8 +77,22 @@ public class SharingInformationServiceImpl implements SharingInformationService{
 	public Reply checkNo(Reply r) {
 		return sid.checkNo(sqlSession,r);
 	}
-
 	
+	@Override
+	public ArrayList<SharingInformation> topBoard() {
+		return sid.topBoard(sqlSession);
+	}
+	
+	@Override
+	public ArrayList<SharingInformation> topReply() {
+		return sid.topReply(sqlSession);
+	}
+
+	@Override
+	public int replyCount(Reply r) {
+		return sid.replyCount(sqlSession,r);
+	}
+
 	// 취업정보공유 게시판
 	@Override
 	public int jobSelectListCount() {
@@ -130,7 +144,20 @@ public class SharingInformationServiceImpl implements SharingInformationService{
 		return sid.jobInsertReply(sqlSession,r);
 	}
 	
-	
+	@Override
+	public ArrayList<SharingInformation> jobTopBoard() {
+		return sid.jobTopBoard(sqlSession);
+	}
+
+	@Override
+	public ArrayList<SharingInformation> jobTopReply() {
+		return sid.jobTopReply(sqlSession);
+	}
+
+	@Override
+	public int jobReplyCount(Reply r) {
+		return sid.jobReplyCount(sqlSession,r);
+	}
 	
 	
 

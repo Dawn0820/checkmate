@@ -74,8 +74,13 @@ public class JobSharingInformationController {
 		int result = sharingInformationService.jobIncreaseCount(informationNo);
 		
 		if (result > 0) {
+			ArrayList<SharingInformation> boardList = sharingInformationService.jobTopBoard();
+			ArrayList<SharingInformation> replyList = sharingInformationService.jobTopReply();
 			SharingInformation b = sharingInformationService.jobSelectBoard(informationNo);
-			mv.addObject("b", b).setViewName("board/jobSharingInformation/jobDetailView");
+			mv.addObject("b", b);
+			mv.addObject("boardList", boardList);
+			mv.addObject("replyList", replyList);
+			mv.setViewName("board/jobSharingInformation/jobDetailView");
 		} else {
 			mv.addObject("errorMsg", "게시글 조회 실패").setViewName("common/errorPage");
 		}
@@ -190,6 +195,7 @@ public class JobSharingInformationController {
 		Reply checkNo = sharingInformationService.checkNo(r);
 		r.setRefUno(checkNo.getRefUno());
 		int result = sharingInformationService.jobInsertReply(r);
+		int replyCount = sharingInformationService.jobReplyCount(r);
 		
 		String ans="";
 		

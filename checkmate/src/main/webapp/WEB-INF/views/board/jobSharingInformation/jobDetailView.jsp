@@ -22,7 +22,13 @@ ul{
    width: 100%;
    text-align: left;
  }
-
+img {
+ max-width: 100%;
+height: auto;
+}
+#reply {
+	word-break:break-all;
+}
 </style>
 </head>
 <body style="padding-top: 3rem;">
@@ -167,7 +173,7 @@ ul{
 								
 							resultStr+= "<div class=\"d-flex\">" +
 											"<div class=\"flex-shrink-0\">" + 
-												"<img class=\"rounded-circle\" src=\"https://dummyimage.com/50x50/ced4da/6c757d.jpg\" alt=\"...\" />" +
+												"<img class=\"rounded-circle\" src=\"" + result[i].replyProfile + "\" alt=\"...\" style=\"height:50px; width:50px;\"/>" +
 											"</div>" + 
 											
 											"<ul>" +
@@ -207,38 +213,39 @@ ul{
 			<!-- Side widgets-->
 			<div class="col-lg-4">
 				<!-- Search widget-->
-				<div class="card mb-4">
-					<div class="card-header">Search</div>
-					<div class="card-body">
-						<div class="input-group">
-							<input class="form-control" type="text"
-								placeholder="Enter search term..."
-								aria-label="Enter search term..."
-								aria-describedby="button-search" />
-							<button class="btn btn-primary" id="button-search" type="button">Go!</button>
+				<form action="jobSearch.si" method="get">
+					<div class="card mb-4">
+						<div class="card-header">Search</div>
+						<div class="card-body">
+							<div class="input-group">
+								<input class="form-control" type="text" id="searchContent"
+									name="searchContent" placeholder="검색할 제목을 입력 해주세요."
+									aria-describedby="button-search" />
+								<button class="btn btn-primary" id="button-search" type="submit">검색</button>
+							</div>
 						</div>
 					</div>
-				</div>
+				</form>
 				<!-- Categories widget-->
 				<div class="card mb-4">
-					<div class="card-header">Categories</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-sm-6">
-								<ul class="list-unstyled mb-0">
-									<li><a href="#!">Web Design</a></li>
-									<li><a href="#!">HTML</a></li>
-									<li><a href="#!">Freebies</a></li>
-								</ul>
-							</div>
-							<div class="col-sm-6">
-								<ul class="list-unstyled mb-0">
-									<li><a href="#!">JavaScript</a></li>
-									<li><a href="#!">CSS</a></li>
-									<li><a href="#!">Tutorials</a></li>
-								</ul>
-							</div>
-						</div>
+					<div class="card-header">가장 많이 본 게시글 TOP 5</div>
+					<div class="card-body" style="padding-bottom: 0px;">
+						<ol class="" style="text-align: left;">
+							<c:forEach var="bl" items="${boardList }">
+								<li><a href="jobDetail.si?informationNo=${bl.informationNo}">${bl.informationTitle }</a></li>
+							</c:forEach>
+						</ol>
+					</div>
+				</div>
+
+				<div class="card mb-4">
+					<div class="card-header">댓글이 가장 많은 게시글 TOP 5</div>
+					<div class="card-body" style="padding-bottom: 0px;">
+						<ol class="" style="text-align: left;">
+							<c:forEach var="rl" items="${replyList }">
+								<li><a href="jobDetail.si?informationNo=${rl.informationNo}">${rl.informationTitle }</a></li>
+							</c:forEach>
+						</ol>
 					</div>
 				</div>
 			</div>
