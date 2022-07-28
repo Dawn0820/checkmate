@@ -126,6 +126,45 @@ height: auto;
 				</section>
 			</div>
 			
+			<!-- Side widgets-->
+			<div class="col-lg-4">
+				<!-- Search widget-->
+				<form action="jobSearch.si" method="get">
+					<div class="card mb-4">
+						<div class="card-header">Search</div>
+						<div class="card-body">
+							<div class="input-group">
+								<input class="form-control" type="text" id="searchContent"
+									name="searchContent" placeholder="검색할 제목을 입력 해주세요."
+									aria-describedby="button-search" />
+								<button class="btn btn-primary" id="button-search" type="submit">검색</button>
+							</div>
+						</div>
+					</div>
+				</form>
+				<!-- Categories widget-->
+				<div class="card mb-4">
+					<div class="card-header">가장 많이 본 게시글 TOP 5</div>
+					<div class="card-body" style="padding-bottom: 0px;">
+						<ol class="" style="text-align: left;">
+							<c:forEach var="bl" items="${boardList }">
+								<li><a href="jobDetail.si?informationNo=${bl.informationNo}">${bl.informationTitle }</a></li>
+							</c:forEach>
+						</ol>
+					</div>
+				</div>
+
+				<div class="card mb-4">
+					<div class="card-header">댓글이 가장 많은 게시글 TOP 5</div>
+					<div class="card-body" style="padding-bottom: 0px;">
+						<ol class="" style="text-align: left;">
+							<c:forEach var="rl" items="${replyList }">
+								<li><a href="jobDetail.si?informationNo=${rl.informationNo}">${rl.informationTitle }</a></li>
+							</c:forEach>
+						</ol>
+					</div>
+				</div>
+			</div>
 			<script>
 		    	$(function(){
 		    		selectReplyList();
@@ -210,45 +249,6 @@ height: auto;
 
 
 
-			<!-- Side widgets-->
-			<div class="col-lg-4">
-				<!-- Search widget-->
-				<form action="jobSearch.si" method="get">
-					<div class="card mb-4">
-						<div class="card-header">Search</div>
-						<div class="card-body">
-							<div class="input-group">
-								<input class="form-control" type="text" id="searchContent"
-									name="searchContent" placeholder="검색할 제목을 입력 해주세요."
-									aria-describedby="button-search" />
-								<button class="btn btn-primary" id="button-search" type="submit">검색</button>
-							</div>
-						</div>
-					</div>
-				</form>
-				<!-- Categories widget-->
-				<div class="card mb-4">
-					<div class="card-header">가장 많이 본 게시글 TOP 5</div>
-					<div class="card-body" style="padding-bottom: 0px;">
-						<ol class="" style="text-align: left;">
-							<c:forEach var="bl" items="${boardList }">
-								<li><a href="jobDetail.si?informationNo=${bl.informationNo}">${bl.informationTitle }</a></li>
-							</c:forEach>
-						</ol>
-					</div>
-				</div>
-
-				<div class="card mb-4">
-					<div class="card-header">댓글이 가장 많은 게시글 TOP 5</div>
-					<div class="card-body" style="padding-bottom: 0px;">
-						<ol class="" style="text-align: left;">
-							<c:forEach var="rl" items="${replyList }">
-								<li><a href="jobDetail.si?informationNo=${rl.informationNo}">${rl.informationTitle }</a></li>
-							</c:forEach>
-						</ol>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 	<!-- Bootstrap core JS-->

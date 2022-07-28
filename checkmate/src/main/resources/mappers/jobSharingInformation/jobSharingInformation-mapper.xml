@@ -23,10 +23,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="INFORMATION_VIEW" property="informationView"/>
 		<result column="INFORMATION_ORIGIN_NAME" property="informationOriginName"/>
 		<result column="INFORMATION_CHANGE_NAME" property="informationChangeName"/>
+		
+		<result column="ROWNUM" property="informationListNum"/>
 	</resultMap>
 	
 	<select id="jobSelectList" resultMap="siResultSet">
-		SELECT INFORMATION_NO,
+		SELECT ROWNUM,IF.*
+		FROM
+    	(SELECT INFORMATION_NO,
 		       USER_NO,
                USER_ID,
                USER_NICK,
@@ -39,7 +43,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         JOIN MEMBER M USING(USER_NO)
 		WHERE INFORMATION_STATUS = 'Y'
 		AND INFORMATION_CATEGORY = '취업정보공유'
-		ORDER BY INFORMATION_DATE DESC
+		ORDER BY INFORMATION_DATE) IF
+        ORDER BY ROWNUM DESC
 	</select>
 	
 	<insert id="jobInsertBoard" parameterType="SharingInformation">

@@ -28,7 +28,7 @@ height: auto;
 }
 #reply {
 	word-break:break-all;
-}
+	}
 </style>
 </head>
 <body style="padding-top: 3rem;">
@@ -119,7 +119,85 @@ height: auto;
 							<div id="reply"></div>
 						</div>
 					</div>
+					<nav aria-label="Page navigation example">
+						<ul class="pagination justify-content-center">
+							<c:choose>
+								<c:when test="${ pi.currentPage eq 1 }">
+									<li class="page-item"><a class="page-link text-dark"
+										href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link text-dark"
+										href="list.si?cpage=${pi.currentPage-1 }"
+										aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								</c:otherwise>
+							</c:choose>
+							</a>
+							</li>
+		
+							<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+								<li class="page-item"><a class="page-link text-dark"
+									href="list.si?cpage=${p }">${p }</a></li>
+							</c:forEach>
+		
+							<c:choose>
+								<c:when test="${pi.currentPage eq pi.maxPage }">
+									<li class="page-item"><a class="page-link text-dark"
+										href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+									</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link text-dark"
+										href="list.si?cpage=${pi.currentPage+1 }"
+										aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+									</a></li>
+		
+								</c:otherwise>
+		
+		
+							</c:choose>
+						</ul>
+					</nav>
 				</section>
+			</div>
+			<!-- Side widgets-->
+			<div class="col-lg-4">
+				<!-- Search widget-->
+				<form action="search.si" method="get">
+					<div class="card mb-4">
+						<div class="card-header">Search</div>
+						<div class="card-body">
+							<div class="input-group">
+								<input class="form-control" type="text" id="searchContent"
+									name="searchContent" placeholder="검색할 제목을 입력 해주세요."
+									aria-describedby="button-search" />
+								<button class="btn btn-primary" id="button-search" type="submit">검색</button>
+							</div>
+						</div>
+					</div>
+				</form>
+				<!-- Categories widget-->
+				<div class="card mb-4">
+					<div class="card-header">가장 많이 본 게시글 TOP 5</div>
+					<div class="card-body" style="padding-bottom: 0px;">
+						<ol class="" style="text-align: left;">
+							<c:forEach var="bl" items="${boardList }">
+								<li><a href="detail.si?informationNo=${bl.informationNo}">${bl.informationTitle }</a></li>
+							</c:forEach>
+						</ol>
+					</div>
+				</div>
+
+				<div class="card mb-4">
+					<div class="card-header">댓글이 가장 많은 게시글 TOP 5</div>
+					<div class="card-body" style="padding-bottom: 0px;">
+						<ol class="" style="text-align: left;">
+							<c:forEach var="rl" items="${replyList }">
+								<li><a href="detail.si?informationNo=${rl.informationNo}">${rl.informationTitle }</a></li>
+							</c:forEach>
+						</ol>
+					</div>
+				</div>
 			</div>
 
 			<script>
@@ -199,45 +277,6 @@ height: auto;
 		    	}
 		    </script>
 
-			<!-- Side widgets-->
-			<div class="col-lg-4">
-				<!-- Search widget-->
-				<form action="search.si" method="get">
-					<div class="card mb-4">
-						<div class="card-header">Search</div>
-						<div class="card-body">
-							<div class="input-group">
-								<input class="form-control" type="text" id="searchContent"
-									name="searchContent" placeholder="검색할 제목을 입력 해주세요."
-									aria-describedby="button-search" />
-								<button class="btn btn-primary" id="button-search" type="submit">검색</button>
-							</div>
-						</div>
-					</div>
-				</form>
-				<!-- Categories widget-->
-				<div class="card mb-4">
-					<div class="card-header">가장 많이 본 게시글 TOP 5</div>
-					<div class="card-body" style="padding-bottom: 0px;">
-						<ol class="" style="text-align: left;">
-							<c:forEach var="bl" items="${boardList }">
-								<li><a href="detail.si?informationNo=${bl.informationNo}">${bl.informationTitle }</a></li>
-							</c:forEach>
-						</ol>
-					</div>
-				</div>
-
-				<div class="card mb-4">
-					<div class="card-header">댓글이 가장 많은 게시글 TOP 5</div>
-					<div class="card-body" style="padding-bottom: 0px;">
-						<ol class="" style="text-align: left;">
-							<c:forEach var="rl" items="${replyList }">
-								<li><a href="detail.si?informationNo=${rl.informationNo}">${rl.informationTitle }</a></li>
-							</c:forEach>
-						</ol>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 	<!-- Bootstrap core JS-->

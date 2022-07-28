@@ -183,7 +183,13 @@ public class SharingInformationController {
 	
 	@RequestMapping(value="rlist.si",produces="application/json; charset=UTF-8")
 	@ResponseBody
-	public String selectReplyList(int informationNo) {
+	public String selectReplyList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, int informationNo) {
+		int listCount = sharingInformationService.selectListCount();
+
+		int pageLimit = 10;
+		int boardLimit = 15;
+
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		ArrayList<Reply> list = sharingInformationService.selectReplyList(informationNo);
 		return new Gson().toJson(list);
 	}

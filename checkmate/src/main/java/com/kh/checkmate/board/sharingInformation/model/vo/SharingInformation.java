@@ -19,4 +19,5 @@ public class SharingInformation {
 	private String informationOriginName;
 	private String informationChangeName;
 	private String searchContent;
+	private int informationListNum;
 }
