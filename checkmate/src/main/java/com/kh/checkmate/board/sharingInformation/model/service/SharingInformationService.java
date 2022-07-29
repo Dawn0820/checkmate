@@ -44,6 +44,9 @@ public interface SharingInformationService {
 	ArrayList<SharingInformation> topBoard();
 	ArrayList<SharingInformation> topReply();
 	int replyCount(Reply r);
+	int deleteReply(Reply r);
+	int editReply(Reply r);
+	Reply checkNick(Reply r);
 	
 	// 취업지원정보공유 게시판
 	int jobSelectListCount();
@@ -59,4 +62,7 @@ public interface SharingInformationService {
 	ArrayList<SharingInformation> jobTopBoard();
 	ArrayList<SharingInformation> jobTopReply();
 	int jobReplyCount(Reply r);
+	int jobDeleteReply(Reply r);
+	Reply jobCheckNick(Reply r);
+	int jobEditReply(Reply r);
 }

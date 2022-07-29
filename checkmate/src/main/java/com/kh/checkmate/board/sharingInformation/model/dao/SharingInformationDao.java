@@ -79,6 +79,18 @@ public class SharingInformationDao {
 		return sqlSession.update("sharingInformationMapper.replyCount",r);
 	}
 	
+	public int deleteReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.update("sharingInformationMapper.deleteReply",r);
+	}
+	
+	public int editReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.update("sharingInformationMapper.editReply",r);
+	}
+	
+	public Reply checkNick(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.selectOne("sharingInformationMapper.checkNick", r);
+	}
+	
 	// 취업정보공유 게시판
 	public int jobSelectListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("jobSharingInformationMapper.jobSelectListCount");
@@ -141,6 +153,20 @@ public class SharingInformationDao {
 	public int jobReplyCount(SqlSessionTemplate sqlSession, Reply r) {
 		return sqlSession.update("jobSharingInformationMapper.jobReplyCount",r);
 	}
+
+	public int jobDeleteReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.update("jobSharingInformationMapper.jobDeleteReply",r);
+	}
+
+	public Reply jobCheckNick(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.selectOne("jobSharingInformationMapper.jobCheckNick", r);
+	}
+
+	public int jobEditReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.update("jobSharingInformationMapper.jobEditReply",r);
+	}
+
+
 
 
 

@@ -213,5 +213,39 @@ public class SharingInformationController {
 		return ans;
 	}
 	
+	@RequestMapping(value="rdelete.si",produces="html/text; charset=UTF-8")
+	@ResponseBody
+	public String deleteReply(Reply r) {
+		Reply checkNo = sharingInformationService.checkNick(r);
+		r.setRefUno(checkNo.getRefUno());
+		int result = sharingInformationService.deleteReply(r);
+		
+		String ans="";
+		
+		if(result>0) { //성공
+			ans="Y";
+		}else {//실패 
+			ans="N";
+		}
+		return ans;
+	}
+	
+	@RequestMapping(value="redit.si",produces="html/text; charset=UTF-8")
+	@ResponseBody
+	public String editReply(Reply r) {
+		Reply checkNo = sharingInformationService.checkNick(r);
+		r.setRefUno(checkNo.getRefUno());
+		int result = sharingInformationService.editReply(r);
+		
+		String ans="";
+		
+		if(result>0) { //성공
+			ans="Y";
+		}else {//실패 
+			ans="N";
+		}
+		return ans;
+	}
+	
 
 }

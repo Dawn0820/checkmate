@@ -22,13 +22,15 @@ ul {
 	width: 100%;
 	text-align: left;
 }
+
 img {
- max-width: 100%;
-height: auto;
+	max-width: 100%;
+	height: auto;
 }
+
 #reply {
-	word-break:break-all;
-	}
+	word-break: break-all;
+}
 </style>
 </head>
 <body style="padding-top: 3rem;">
@@ -134,12 +136,12 @@ height: auto;
 							</c:choose>
 							</a>
 							</li>
-		
+
 							<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
 								<li class="page-item"><a class="page-link text-dark"
 									href="list.si?cpage=${p }">${p }</a></li>
 							</c:forEach>
-		
+
 							<c:choose>
 								<c:when test="${pi.currentPage eq pi.maxPage }">
 									<li class="page-item"><a class="page-link text-dark"
@@ -148,18 +150,87 @@ height: auto;
 								</c:when>
 								<c:otherwise>
 									<li class="page-item"><a class="page-link text-dark"
-										href="list.si?cpage=${pi.currentPage+1 }"
-										aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+										href="list.si?cpage=${pi.currentPage+1 }" aria-label="Next">
+											<span aria-hidden="true">&raquo;</span>
 									</a></li>
-		
+
 								</c:otherwise>
-		
-		
+
+
 							</c:choose>
 						</ul>
 					</nav>
 				</section>
 			</div>
+			<div class="modal fade" id="editModal" data-bs-backdrop="static"
+				data-bs-keyboard="false" tabindex="-1"
+				aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="staticBackdropLabel">댓글 수정</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body"></div>
+						<div class="input-group mb-3">
+							<span class="input-group-text">닉네임 : </span> <input type="text"
+								class="form-control" id="editCheckId"
+								aria-describedby="basic-addon3">
+						</div>
+						<div class="mb-3">
+							<label for="message-text" class="col-form-label">원본 댓글
+								내용을 복사하여 붙여넣기 하세요.</label>
+							<textarea class="form-control" id="editCheckContent"></textarea>
+						</div>
+
+						<div class="mb-3">
+							<label for="message-text" class="col-form-label">수정할 댓글
+								내용을 입력 하세요.</label>
+							<textarea class="form-control" id="editContent"></textarea>
+						</div>
+
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary"
+								onclick="editReply(editCheckId,editCheckContent,editContent);">수정하기</button>
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">아니요</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="removeModal" data-bs-backdrop="static"
+				data-bs-keyboard="false" tabindex="-1"
+				aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="staticBackdropLabel">댓글 삭제</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body"></div>
+						<div class="input-group mb-3">
+							<span class="input-group-text">닉네임 : </span> <input type="text"
+								class="form-control" id="removeCheckId"
+								aria-describedby="basic-addon3">
+						</div>
+						<div class="mb-3">
+							<label for="message-text" class="col-form-label">삭제할 댓글
+								내용을 복사하여 붙여넣기 하세요.</label>
+							<textarea class="form-control" id="removeCheckContent"></textarea>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary"
+								onclick="deleteReply(removeCheckId,removeCheckContent);">삭제하기</button>
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">아니요</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<!-- Side widgets-->
 			<div class="col-lg-4">
 				<!-- Search widget-->
@@ -205,6 +276,41 @@ height: auto;
 		    		selectReplyList();
 		    	})
 		    	
+		    	function deleteReply(id, content){
+		    		$.ajax({
+		    			url : "rdelete.si",
+		    			data : {
+		    				replyWriter : id.value,
+		    				replyContent : content.value,
+		    			},
+		    			success : function(result){
+		    				selectReplyList();
+
+		    			},
+		    			error : function(){
+		    				console.log("통신실패");
+		    			}
+		    		})
+		    	}
+		    	
+		    	function editReply(id, content, editContent){
+		    		$.ajax({
+		    			url : "redit.si",
+		    			data : {
+		    				replyWriter : id.value,
+		    				replyContent : content.value,
+		    				editContent : editContent.value,
+		    			},
+		    			success : function(result){
+		    				selectReplyList();
+
+		    			},
+		    			error : function(){
+		    				console.log("통신실패");
+		    			}
+		    		})
+		    	}
+		    	
 		    	function addReply(){
     		
 	    		if($("#insertContent").val().trim().length != 0){
@@ -238,37 +344,78 @@ height: auto;
 		    			data : {
 		    				informationNo : ${b.informationNo}
 		    			},
-		    			success : function(result){
+							success : function(result){
+							
 							var resultStr="";
+							var edit_resultStr="";
+							var final_resultStr="";
+							var nickCheck="true";
+							var lUser="${loginUser.userNick}";
 							
 							for(var i=0; i<result.length;i++){
-							resultStr+= "<div class=\"d-flex\">" +
-											"<div class=\"flex-shrink-0\">" + 
-												"<img class=\"rounded-circle\" src=\"" + result[i].replyProfile + "\" alt=\"...\" style=\"height:50px; width:50px;\"/>" +
-											"</div>" + 
-											
-											"<ul>" +
-											"<li>" +
-											
-											"<div style=\"width:100%; height:30px;\">" +
-												"<div class=\"fw-bold\" style=\"float:left\">" + result[i].replyWriter + "</div>" +
-												"<div  style=\"font-size:2px; float:right; padding-right:20px;\">" +
-												result[i].replyDate +
-												"</div>" +
-											"</div>" +
-											
-											"</li>" +
-											"<li>" +
-												"<span id=\"content\"> " + result[i].replyContent + "</span>" +
-											
-												"</li>" +
-												"</ul>" +
-												
+							var x = result[i].replyWriter;
+							
+							if(lUser != result[i].replyWriter) {
+								resultStr+= "<div class=\"d-flex\">" +
+									"<div class=\"flex-shrink-0\">" + 
+										"<img class=\"rounded-circle\" src=\"" + result[i].replyProfile + "\" alt=\"...\" style=\"height:50px; width:50px;\"/>" +
+									"</div>" + 
+									
+									"<ul>" +
+									"<li>" +
+									
+									"<div style=\"width:100%; height:30px;\">" +
+										"<div class=\"fw-bold\" style=\"float:left\">" + result[i].replyWriter + "</div>" +
+										"<div  style=\"font-size:2px; float:right; padding-right:20px;\">" +
+										result[i].replyDate + "&nbsp;&nbsp;" +
 										"</div>" +
-										"<br>"
+									"</div>" +
+									"</li>" +
+									"<li>" +
+										"<span id=\"content\"> " + result[i].replyContent + "</span>" +
+									
+										"</li>" +
+										"</ul>" +
+										
+								"</div>" +
+								"<br>"
+							} else if(lUser == result[i].replyWriter) {
+								resultStr+= "<div class=\"d-flex\">" +
+								"<div class=\"flex-shrink-0\">" + 
+									"<img class=\"rounded-circle\" src=\"" + result[i].replyProfile + "\" alt=\"...\" style=\"height:50px; width:50px;\"/>" +
+								"</div>" + 
+								
+								"<ul>" +
+								"<li>" +
+								
+								"<div style=\"width:100%; height:30px;\">" +
+									"<div class=\"fw-bold\" style=\"float:left\">" + result[i].replyWriter + "</div>" +
+									"<div id=\"replyCheck\" style=\"font-size:2px; float:right; padding-right:20px;\">" +
+									result[i].replyDate + "&nbsp;&nbsp;" +
+// 									"<img id=\"editCheck\" src=\"resources/img/board/reply_edit.png\" style=\"hieght:18px; width:18px;\">"  + 
+									"<button type=\"button\" class=\"btn btn-secondary btn-sm\" data-bs-toggle=\"modal\" data-bs-target=\"#editModal\">" +
+									"수정" +
+									"</button>"+
+									"&nbsp;&nbsp;" +
+// 									"<img id=\"removeCheck\" src=\"resources/img/board/reply_remove.png\" style=\"hieght:18px; width:18px;\">"  + 
+									"<button type=\"button\" class=\"btn btn-secondary btn-sm\" data-bs-toggle=\"modal\" data-bs-target=\"#removeModal\">" +
+									"삭제" +
+									"</button>"+
+									"</div>" +
+								"</div>" +
+								"</li>" +
+								"<li>" +
+									"<span id=\"content\"> " + result[i].replyContent + "</span>" +
+								
+									"</li>" +
+									"</ul>" +
+									
+							"</div>" +
+							"<br>"
 							}
-						
+						}
 		    				$("#reply").html(resultStr);
+		    				$("#rcount").text(result.length);
 		    			},
 		    			error : function(){
 		    				console.log("통신실패");

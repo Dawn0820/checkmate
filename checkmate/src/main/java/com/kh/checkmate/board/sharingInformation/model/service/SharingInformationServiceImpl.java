@@ -93,6 +93,22 @@ public class SharingInformationServiceImpl implements SharingInformationService{
 		return sid.replyCount(sqlSession,r);
 	}
 
+	@Override
+	public int deleteReply(Reply r) {
+		return sid.deleteReply(sqlSession,r);
+	}
+
+	@Override
+	public int editReply(Reply r) {
+		return sid.editReply(sqlSession,r);
+	}
+	
+
+	@Override
+	public Reply checkNick(Reply r) {
+		return sid.checkNick(sqlSession,r);
+	}
+
 	// 취업정보공유 게시판
 	@Override
 	public int jobSelectListCount() {
@@ -158,6 +174,23 @@ public class SharingInformationServiceImpl implements SharingInformationService{
 	public int jobReplyCount(Reply r) {
 		return sid.jobReplyCount(sqlSession,r);
 	}
+
+	@Override
+	public int jobDeleteReply(Reply r) {
+		return sid.jobDeleteReply(sqlSession,r);
+	}
+
+	@Override
+	public Reply jobCheckNick(Reply r) {
+		return sid.jobCheckNick(sqlSession,r);
+	}
+
+	@Override
+	public int jobEditReply(Reply r) {
+		return sid.jobEditReply(sqlSession,r);
+	}
+	
+	
 	
 	
 

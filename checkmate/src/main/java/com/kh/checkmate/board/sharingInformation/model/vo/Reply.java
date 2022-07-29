@@ -12,6 +12,7 @@ import lombok.ToString;
 public class Reply {
 	   private int replyNo;
 	   private String replyContent;
+	   private String editContent;
 	   private int refBno;
 	   private int refUno;
 	   private String replyProfile;

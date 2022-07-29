@@ -206,4 +206,39 @@ public class JobSharingInformationController {
 		}
 		return ans;
 	}
+	
+	@RequestMapping(value="jobrdelete.si",produces="html/text; charset=UTF-8")
+	@ResponseBody
+	public String jobDeleteReply(Reply r) {
+		Reply checkNo = sharingInformationService.jobCheckNick(r);
+		r.setRefUno(checkNo.getRefUno());
+		int result = sharingInformationService.jobDeleteReply(r);
+		
+		String ans="";
+		
+		if(result>0) { //성공
+			ans="Y";
+		}else {//실패 
+			ans="N";
+		}
+		return ans;
+	}
+	
+	@RequestMapping(value="jobredit.si",produces="html/text; charset=UTF-8")
+	@ResponseBody
+	public String jobEditReply(Reply r) {
+		Reply checkNo = sharingInformationService.jobCheckNick(r);
+		r.setRefUno(checkNo.getRefUno());
+		int result = sharingInformationService.jobEditReply(r);
+		
+		String ans="";
+		
+		if(result>0) { //성공
+			ans="Y";
+		}else {//실패 
+			ans="N";
+		}
+		return ans;
+	}
+	
 }
