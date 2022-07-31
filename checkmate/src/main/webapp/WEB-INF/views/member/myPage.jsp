@@ -13,8 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 	
 	
     <style>
@@ -64,7 +63,7 @@
         #navi a{
             color: grey;
             text-decoration: none;
-            font-size: 24px;
+            font-size: 23px;
             font-weight: bold;
             display: flex;
             height: 100%;
@@ -73,7 +72,7 @@
             margin: 0 auto; 
         }
         #navi a:hover{
-            font-size: 25px;
+            font-size: 24px;
             color: black;
         }
         .inline-block{
@@ -116,28 +115,29 @@
                 <br><br><br>
                 <ul id="navi">
                     <li><a href="myPage.me">예약조회/취소</a></li>
-                    <li><a type="button" data-toggle="modal" data-target="#myModal">정보수정</a></li>
+                    <li><a type="button" data-bs-toggle="modal" data-bs-target="#myModal">정보수정</a></li>
                     <c:if test="${not empty loginUser.userPw && not empty loginUser.userId}">
-                    <li><a type="button" data-toggle="modal" data-target="#myModal2">회원탈퇴</a></li>
+                    <li><a type="button" data-bs-toggle="modal" data-bs-target="#myModal2">회원탈퇴</a></li>
                     </c:if>
                     <c:if test="${not empty loginUser.userPw && not empty loginUser.userId}">
-                    <li><a type="button" data-toggle="modal" data-target="#myModal3" onclick="return checkPWD();">비밀번호 변경</a></li>
+                    <li><a type="button" data-bs-toggle="modal" data-bs-target="#myModal3" onclick="return checkPWD();">비밀번호 변경</a></li>
                     </c:if>
                     <li><a href="">고객센터</a></li>
-                    <li><a type="button" data-toggle="modal" data-target="#myModal4">나의 스터디그룹</a></li>
+                    <li><a type="button" data-bs-toggle="modal" data-bs-target="#myModal4">나의 스터디그룹</a></li>
                 </ul>
             </div>
             <div class="content_2">
                 <div class="content_2_1">
-                    <span class="inline-block"><img src=".${request.getContextPath()}/${loginUser.userChangeProfile}" style="width: 100px; height: 80px;"></span>
-                    <span class="inline-block"><h3>${loginUser.userName} 안녕하세요</h3></span>
+                    <span class="inline-block"><img src=".${request.getContextPath()}/${loginUser.userChangeProfile}" style="width: 100px; height: 80px;"></span><br>
+                    <h3><span class="inline-block">${loginUser.userName}님 안녕하세요</span></h3>
                 </div>
-                <div class="content_2_2">
+                <br>
+                <div class="content_2_2" style="margin-left: 100px;">
+                    <h2 class="inline-block" style="margin-right: 3px;">예약조회</h2>
+                    <span class="inline-block badge bg-secondary" style="margin-left: 3px;">${listCount}</span>
                     <br>
-                    <h2 style="margin-left: 100px;">예약조회<span class="badge">${listCount}</span></h2>
-                    <br>
-                    <hr style="height: 3px; background-color: black;">
                 </div>
+                <hr style="height: 3px; background-color: black;">
                 <div class="innerOuter" style="padding:5% 5%;">
                 	<div style="float:right;">
                 	<a class="btn btn-secondary" style="margin-right: 3px;" href="selectMyReservation.ro">예약조회</a>
@@ -173,11 +173,11 @@
             </div>    
                   <!-- Modal -->
                 <div class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-dialog-centered">
                     <!-- Modal content-->
                     <div class="modal-content"> 
                     	<div align="right" >
-                    		<button type="button" class="close" data-dismiss="modal">&times;</button>
+                    		<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     	</div>
                         <div class="modal-header">
                             <h2 class="modal-title" align="center">정보수정</h2>
@@ -208,7 +208,8 @@
                 					
                 					<c:if test="${not empty loginUser.userPw && not empty loginUser.userId}">
                                     <label for="email"> &nbsp; 이메일 : </label>
-                                    <input type="text" class="form-control" id="userEmail" value="${loginUser.userEmail}" name="userEmail" placeholder="이메일"> <br>
+                                    <input type="text" class="form-control" id="userEmail" value="${loginUser.userEmail}" name="userEmail" placeholder="이메일">
+                                    <button type="button" id="emailBtn" class="checkBtn">중복 확인</button><br>
                                     </c:if>
                                     
                 					<c:if test="${not empty loginUser.userPw && not empty loginUser.userId}">
@@ -228,7 +229,7 @@
                                 <br>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary" id="updateConfirm">수정하기</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
                                 </div>
                              </div>   
                         </form>
@@ -238,11 +239,11 @@
             </div>
                         <!-- Modal -->
             <div class="modal fade" id="myModal2" role="dialog">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                 <!-- Modal content-->
                 <div class="modal-content">
                    	<div align="right" >
-                   		<button type="button" class="close" data-dismiss="modal">&times;</button>
+                   		<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                    	</div>
                         <div class="modal-header"> 
                         	<h2 class="modal-title" align="center">회원탈퇴</h2>
@@ -257,7 +258,7 @@
                             <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력해주세요." id="userPw" name="userPw"> <br>
                         </div>
                         <div class="modal-footer" style="text-align: center;">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
                             <button type="submit" class="btn btn-success">탈퇴하기</button>
                         </div>
                     </form>  
@@ -267,11 +268,11 @@
             
             <!-- Modal -->
             <div class="modal fade" id="myModal3" role="dialog">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                 <!-- Modal content-->
                 <div class="modal-content">
                    	<div align="right">
-                   		<button type="button" class="close" data-dismiss="modal">&times;</button>
+                   		<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                    	</div>
                     <div class="modal-header">  
                     		<h2 class="modal-title" align="center">비밀번호 변경</h2>
@@ -297,7 +298,7 @@
                 			</table><br>
                         </div>
                         <div class="modal-footer" style="text-align: center;">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
                             <button type="submit" class="btn btn-success" onclick="return validatePwd();" >비밀번호 변경</button>
                         </div>
                     </form>  
@@ -306,11 +307,11 @@
             </div>
             <!-- Modal -->
             <div class="modal fade" id="myModal4" role="dialog">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                 <!-- Modal content-->
                 <div class="modal-content">
                    	<div align="right">
-                   		<button type="button" class="close" data-dismiss="modal">&times;</button>
+                   		<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                    	</div>
                     <div class="modal-header">  
                     	<h2 class="modal-title" align="center">나의 스터디그룹</h2>
@@ -347,7 +348,7 @@
                 			<br>
                         </div>
                         <div class="modal-footer" style="text-align: center;">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
                             <button type="submit" class="btn btn-success" >??</button>
                         </div>
                     </form>  
@@ -420,7 +421,7 @@
  	});
  	
  	$("#nickBtn").click(function(){
-     	
+
      	$.ajax({
      		url : "nickCheck.me",
      		data : {
@@ -447,15 +448,6 @@
      	
      });
 	
-	$("#phoneBtn2").click(function(){
-		if($("#phoneCheck").val() == code2){
-			alert("인증번호가 일치합니다.");
-			$("#phoneCheck").attr("readonly",true);
-		}else{
-			alert("인증번호를 다시 확인해주세요.").css("color","red");
-			$("#phoneCheck").attr("autofocus",true);
-		}
-	});
  	//프로필 파트
 	function setThumbnail(inputFile){
 		
@@ -474,15 +466,11 @@
 	};
 	$("#updateConfirm").click(function(){
 		
-		if($("userNick").prop("readonly")==false){
-			alert("닉네임 중복확인을 해주세요.");
-			return false;
-		}else if($("#address_detail").val().length<1){
+		if($("#address_detail").val().length<1){
         	alert("주소를 다시 확인해주세요.");
         	return false;
-		}	
-        	
-		else{
+		
+		}else{
 			
 			var address = $('#userAddress').val();
 			address += $('#address_kakao').val();
@@ -515,6 +503,33 @@
 			})
 		})
 	})
+		//이메일파트
+	$("#emailBtn").click(function(){
+		
+    	$.ajax({
+    		url : "emailCheck.me",
+    		data : {
+    			userEmail : $("#userEmail").val()
+    		},
+    		success : function(result){
+    			console.log(result)
+    			if(result=="N"){
+    				alert("사용중인 이메일입니다. 다시 입력해 주세요");
+    				$("#userEmail").val('');
+    				$("#userEmail").focus();
+
+    			}else{
+    				alert("사용 가능한 이메일입니다.");
+    				$("#userEmail").attr("readonly","true");
+    			}
+    		},
+    		error : function(result){
+    			console.log(result)
+    			console.log("오류");
+    		}
+    	})
+    	
+    });
     </script>
 </body>
 </html>
