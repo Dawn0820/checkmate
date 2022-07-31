@@ -200,4 +200,26 @@ public class JobSharingInformationController {
 		}
 		return ans;
 	}
+	
+	// 구대영
+	// 통합검색
+	@RequestMapping("jsiSearchList.si")
+	public String jsiSearchList(@RequestParam(value = "searchContent") String searchContent,
+			@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model, SharingInformation b) {
+		int jsearchListCount = sharingInformationService.searchListCount2(searchContent);
+
+		int pageLimit = 10;
+		int boardLimit = 15;
+
+		PageInfo pi = Pagination.getPageInfo(jsearchListCount, currentPage, pageLimit, boardLimit);
+
+		model.addAttribute("searchContent", searchContent);
+		ArrayList<SharingInformation> list = sharingInformationService.jsiSearchList(pi, searchContent);
+		model.addAttribute("list", list);
+
+		model.addAttribute("pi", pi);
+
+		return "board/jobSharingInformation/jobListView";
+	}
+	
 }

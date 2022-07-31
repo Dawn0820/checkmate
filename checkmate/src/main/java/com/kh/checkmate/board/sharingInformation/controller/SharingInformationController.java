@@ -202,5 +202,26 @@ public class SharingInformationController {
 		return ans;
 	}
 	
+	//구대영
+	//통합검색
+	@RequestMapping("siSearchList.si")
+	public String siSearchList(@RequestParam(value = "searchContent") String searchContent, @RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model,
+			SharingInformation b) {
+		int searchListCount = sharingInformationService.searchListCount(searchContent);
+
+		int pageLimit = 10;
+		int boardLimit = 15;
+
+		PageInfo pi = Pagination.getPageInfo(searchListCount, currentPage, pageLimit, boardLimit);
+
+		model.addAttribute("searchContent",searchContent);
+		ArrayList<SharingInformation> list = sharingInformationService.siSearchList(pi, searchContent);
+		model.addAttribute("list", list);
+
+		model.addAttribute("pi", pi);
+
+		return "board/sharingInformation/siListView";
+	}
+	
 
 }
