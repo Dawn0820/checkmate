@@ -153,7 +153,7 @@ hr {
 							data-bs-target="#myModal3" onclick="return checkPWD();">비밀번호
 								변경</a></li>
 					</c:if>
-					<li><a href="">고객센터</a></li>
+					<li><a href="noticeList.no">고객센터</a></li>
 					<li><a type="button" data-bs-toggle="modal"
 						data-bs-target="#myModal4">나의 스터디그룹</a></li>
 				</ul>
