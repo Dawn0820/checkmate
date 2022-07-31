@@ -127,6 +127,16 @@
 										</ul></li>
 									<li><a href="studyGroupEnrollForm.sg">스터디 생성 </a></li>
 								</ul></li>
+							<li class="dropdown"><a href="#"><span>메세지</span> <i
+									class="bi bi-chevron-down"></i></a>
+								<ul>
+									<li class="dropdown"><a href="messageList.msg"><span>메세지함</span> <i class="bi bi-chevron-right"></i></a>
+										<ul>
+											<li><a href="messageList.msg">수신함</a></li>
+											<li><a href="messageSendList.msg">발신함</a></li>
+										</ul></li>
+									<li><a href="messageForm.msg">메세지 전송</a></li>
+								</ul></li>
 							<li><div style="padding: 0 70px;"></div></li>
 						</c:otherwise>
 					</c:choose>
