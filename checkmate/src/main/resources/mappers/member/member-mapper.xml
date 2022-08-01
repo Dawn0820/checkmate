@@ -142,7 +142,7 @@
 		,USER_ADDRESS = #{userAddress}
 		,USER_ORIGIN_PROFILE = #{userOriginProfile}
 		,USER_CHANGE_PROFILE = #{userChangeProfile}
-		WHERE USER_ID = #{userId}
+		WHERE USER_NO = #{userNo}
 	</update>
 	<update id="updateMember" parameterType="member">
 		UPDATE MEMBER
@@ -150,7 +150,7 @@
 		,USER_EMAIL = #{userEmail}
 		,USER_PHONE = #{userPhone}
 		,USER_ADDRESS = #{userAddress}
-		WHERE USER_ID = #{userId}
+		WHERE USER_NO = #{userNo}
 	</update>
 	<update id="deleteMember" parameterType="String">
 		UPDATE MEMBER
@@ -166,7 +166,7 @@
 	<select id="myPage" resultMap="memberResultSet">
 		SELECT USER_ADDRESS
 		FROM MEMBER
-		WHERE USER_ID = #{userId}
+		WHERE USER_NO = #{userNo}
 		AND USER_STATUS = 'Y'
 	</select>
 	

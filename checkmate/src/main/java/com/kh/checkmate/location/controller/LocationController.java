@@ -66,7 +66,7 @@ public class LocationController {
 			}
 		}
 		
-	    File myFile = new File("D:\\KH\\100.final\\github\\checkmate\\checkmate\\src\\main\\webapp\\resources\\kakaoMap/kakaoMap.json");
+	    File myFile = new File("D:\\github\\checkmate\\checkmate\\src\\main\\webapp\\resources\\kakaoMap/kakaoMap.json");
 	    try {
 	    	if(myFile.exists()){
 	    		myFile.delete();

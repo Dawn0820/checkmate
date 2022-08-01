@@ -140,8 +140,11 @@ hr {
 				<br> <br> <br>
 				<ul id="navi">
 					<li><a href="myPage.me">예약조회/취소</a></li>
+					<c:if
+						test="${not empty loginUser.userPw && not empty loginUser.userId}">
 					<li><a type="button" data-bs-toggle="modal"
 						data-bs-target="#myModal">정보수정</a></li>
+					</c:if>	
 					<c:if
 						test="${not empty loginUser.userPw && not empty loginUser.userId}">
 						<li><a type="button" data-bs-toggle="modal"
@@ -237,13 +240,10 @@ hr {
 										id="userOriginProfile" onchange="setThumbnail(this);">
 								</div>
 								<div class="form-group">
-									<c:if
-										test="${not empty loginUser.userPw && not empty loginUser.userId}">
 										<label for="userId">* 아이디 : </label>
 										<input type="text" class="form-control" id="userId"
 											value="${loginUser.userId}" name="userId" readonly>
 										<br>
-									</c:if>
 									<label for="userName">* 이름 : </label> <input type="text"
 										class="form-control" id="userName"
 										value="${loginUser.userName}" name="userName" required
@@ -254,9 +254,6 @@ hr {
 									<button type="button" id="nickBtn" class="checkBtn">중복
 										확인</button>
 									<span class="nickCheck">3~10자를 사용하세요.</span> <br>
-
-									<c:if
-										test="${not empty loginUser.userPw && not empty loginUser.userId}">
 										<label for="email"> &nbsp; 이메일 : </label>
 										<input type="text" class="form-control" id="userEmail"
 											value="${loginUser.userEmail}" name="userEmail"
@@ -264,16 +261,11 @@ hr {
 										<button type="button" id="emailBtn" class="checkBtn">중복
 											확인</button>
 										<br>
-									</c:if>
-
-									<c:if
-										test="${not empty loginUser.userPw && not empty loginUser.userId}">
 										<label for="phone"> &nbsp; 전화번호(숫자만 입력)</label>
 										<input type="text" class="form-control" id="userPhone"
 											value="${loginUser.userPhone}" name="userPhone"
 											placeholder="전화번호(숫자만 입력)">
 										<br>
-									</c:if>
 
 									<label for="address"> &nbsp; 주소 : </label> <input type="text"
 										class="form-control" id="address_kakao"
