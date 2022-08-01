@@ -18,9 +18,6 @@
 </head>
 <body>
 
-	<jsp:include page="../common/header.jsp" />
-	<br><br><br><br><br>
-
 	<div id="explorationContainer">
 		<h1><mark>한 자리 남았어요☝️</mark></h1>
 		<br>
@@ -125,8 +122,6 @@
 		
 	</div>
 
-	<br><br>
-	<jsp:include page="../common/footer.jsp" />
 
 </body>
 </html>
