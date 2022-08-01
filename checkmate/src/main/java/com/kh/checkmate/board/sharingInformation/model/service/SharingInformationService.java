@@ -69,6 +69,6 @@ public interface SharingInformationService {
 	//구대영
 	int searchListCount(String searchContent);
 	int searchListCount2(String searchContent);
-	ArrayList<StudyGroup> siSearchList(PageInfo pi, String searchContent);
-	ArrayList<StudyGroup> jsiSearchList(PageInfo pi, String searchContent);
+	ArrayList<SharingInformation> siSearchList(PageInfo pi, String searchContent);
+	ArrayList<SharingInformation> jsiSearchList(PageInfo pi, String searchContent);
 }

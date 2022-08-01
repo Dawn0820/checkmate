@@ -203,12 +203,12 @@ public class SharingInformationServiceImpl implements SharingInformationService{
 	}
 
 	@Override
-	public ArrayList<StudyGroup> siSearchList(PageInfo pi, String searchContent) {
+	public ArrayList<SharingInformation> siSearchList(PageInfo pi, String searchContent) {
 		return sid.siSearchList(sqlSession, pi, searchContent);
 	}
 
 	@Override
-	public ArrayList<StudyGroup> jsiSearchList(PageInfo pi, String searchContent) {
+	public ArrayList<SharingInformation> jsiSearchList(PageInfo pi, String searchContent) {
 		return sid.jsiSearchList(sqlSession, pi, searchContent);
 	}
 	

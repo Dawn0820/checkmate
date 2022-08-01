@@ -177,7 +177,7 @@ public class SharingInformationDao {
 		return sqlSession.selectOne("jobSharingInformationMapper.searchListCount2", searchContent);
 	}
 
-	public ArrayList<StudyGroup> siSearchList(SqlSessionTemplate sqlSession, PageInfo pi, String searchContent) {
+	public ArrayList<SharingInformation> siSearchList(SqlSessionTemplate sqlSession, PageInfo pi, String searchContent) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 
@@ -186,7 +186,7 @@ public class SharingInformationDao {
 		return (ArrayList) sqlSession.selectList("sharingInformationMapper.siSearchList", searchContent, rowBounds);
 	}
 
-	public ArrayList<StudyGroup> jsiSearchList(SqlSessionTemplate sqlSession, PageInfo pi, String searchContent) {
+	public ArrayList<SharingInformation> jsiSearchList(SqlSessionTemplate sqlSession, PageInfo pi, String searchContent) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 
