@@ -198,11 +198,11 @@
 	        <span class="successPhoneChk">전화번호 입력후 인증번호 보내기를 해주십시오.</span>
         </div>
 
-        <div class="input-box">
-            <input id="phoneCheck" type="text"  placeholder="인증번호" disabled required>
-            <label for="phoneCheck">인증번호</label>
-            <button type='button' id="phoneBtn2" class="checkBtn">본인인증</button>
-        </div>
+<!--         <div class="input-box"> -->
+<!--             <input id="phoneCheck" type="text"  placeholder="인증번호" disabled required> -->
+<!--             <label for="phoneCheck">인증번호</label> -->
+<!--             <button type='button' id="phoneBtn2" class="checkBtn">본인인증</button> -->
+<!--         </div> -->
         
         <div align="center">
             <input type="submit" value="가입" id="confirmBtn"/>
@@ -372,7 +372,7 @@
 	
 	//이메일파트
 	$("#emailBtn").click(function(){
-    	
+    	var emailReg = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     	$.ajax({
     		url : "emailCheck.me",
     		data : {
@@ -380,7 +380,11 @@
     		},
     		success : function(result){
     			console.log(result)
-    			if(result=="N"){
+    			if(!emailReg.test($("#userEmail").val())){
+    				alert("이메일 형식에 맞게 입력해주세요.");
+    				$("#userEmail").val('');
+    				$("#userEmail").focus();
+    			}else if(result=="N"){
     				alert("사용중인 이메일입니다. 다시 입력해 주세요");
     				$("#userEmail").val('');
     				$("#userEmail").focus();
@@ -485,13 +489,13 @@
         	alert("주소를 다시 확인해주세요.");
         	return false;
         }
-        else if($("#phoneCheck").prop("readonly")==false){
-            alert("휴대폰 인증이 필요합니다.");       
-            return false;
-        }else if($("#userPhone").prop("readonly")==false){
-        	alert("휴대폰 인증이 필요합니다.");       
-            return false;
-        }
+//         else if($("#phoneCheck").prop("readonly")==false){
+//             alert("휴대폰 인증이 필요합니다.");       
+//             return false;
+//         }else if($("#userPhone").prop("readonly")==false){
+//         	alert("휴대폰 인증이 필요합니다.");       
+//             return false;
+//         }
         else{
         	alert("환영합니다.");    
         	var address = $('#userAddress').val();
