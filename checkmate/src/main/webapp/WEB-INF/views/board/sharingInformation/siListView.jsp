@@ -139,19 +139,6 @@
 									href="siSearchList.si?searchContent=${searchContent }&cpage=${p }">${p }</a></li>
 							</c:forEach>
 
-<<<<<<< HEAD
-					<c:choose>
-						<c:when test="${pi.currentPage eq pi.maxPage }">
-							<li class="page-item"><a class="page-link text-dark"
-								href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-							</a></li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item"><a class="page-link text-dark"
-								href="list.si?cpage=${pi.currentPage+1 }"
-								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-							</a></li>
-=======
 							<c:choose>
 								<c:when test="${pi.currentPage eq pi.maxPage }">
 									<li class="page-item"><a class="page-link text-dark"
@@ -166,12 +153,8 @@
 
 								</c:otherwise>
 							</c:choose>
->>>>>>> branch 'main' of https://github.com/Dawn0820/checkmate.git
 						</c:otherwise>
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'main' of https://github.com/Dawn0820/checkmate.git
 					</c:choose>
 
 				</ul>

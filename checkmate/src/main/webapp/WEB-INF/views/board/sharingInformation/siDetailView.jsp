@@ -119,45 +119,6 @@ img {
 							<div id="reply"></div>
 						</div>
 					</div>
-					<nav aria-label="Page navigation example">
-						<ul class="pagination justify-content-center">
-							<c:choose>
-								<c:when test="${ pi.currentPage eq 1 }">
-									<li class="page-item"><a class="page-link text-dark"
-										href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-								</c:when>
-								<c:otherwise>
-									<li class="page-item"><a class="page-link text-dark"
-										href="list.si?cpage=${pi.currentPage-1 }"
-										aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-								</c:otherwise>
-							</c:choose>
-							</a>
-							</li>
-
-							<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
-								<li class="page-item"><a class="page-link text-dark"
-									href="list.si?cpage=${p }">${p }</a></li>
-							</c:forEach>
-
-							<c:choose>
-								<c:when test="${pi.currentPage eq pi.maxPage }">
-									<li class="page-item"><a class="page-link text-dark"
-										href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-									</a></li>
-								</c:when>
-								<c:otherwise>
-									<li class="page-item"><a class="page-link text-dark"
-										href="list.si?cpage=${pi.currentPage+1 }" aria-label="Next">
-											<span aria-hidden="true">&raquo;</span>
-									</a></li>
-
-								</c:otherwise>
-
-
-							</c:choose>
-						</ul>
-					</nav>
 				</section>
 			</div>
 			<div class="modal fade" id="editModal" data-bs-backdrop="static"
