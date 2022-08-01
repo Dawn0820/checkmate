@@ -7,7 +7,7 @@
   <title>스터디 예약센터</title>
 	<meta content="" name="description">
 	<meta content="" name="keywords">
-	<jsp:include page="../common/header.jsp"/>
+	
   <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   
@@ -26,7 +26,7 @@
     <!-- ===============================================-->
 
     <link href="resources/css/theme1.css" rel="stylesheet" />
-
+	<jsp:include page="../common/header.jsp"/>
   </head>
 
 
