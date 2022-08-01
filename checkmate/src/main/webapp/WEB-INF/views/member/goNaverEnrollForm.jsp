@@ -82,7 +82,7 @@
         border:none;
         color:white;
         border-radius: 5px;
-        width: 100px;
+        width: 110px;
         font-size: 14pt;       
     }
     .checkBtn:hover{
@@ -110,7 +110,7 @@
 	<br><br><br><br><br>
 	<form action="naverInsert.me" method="post" enctype="multipart/form-data">
     	<input type="hidden" name="userId" value="${userId}">
-    	<input type="hidden" name="userEmail" value="${userEmail}">
+    	
     	<div align="center"><H3>프로필 사진</H3></div>
     	<div id="image_container" align="center"><img id="userProfile" src="./resources/images/basic.jpg"></div>
     	<br>
@@ -128,7 +128,7 @@
         <div class="input-box">
             <input id="userNick" type="text" name="userNick" placeholder="닉네임" required>
             <label for="userNick">닉네임</label>
-            <button type="button" id="nickBtn" class="checkBtn">중복 확인</button>
+            <button type="button" id="nickBtn" class="checkBtn">중복확인</button>
         </div>
         <div class="input-box">
 	        <span class="nickCheck">3~10자를 사용하세요.</span>

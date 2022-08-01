@@ -10,32 +10,30 @@
 	</select>
 
 	<insert id="insertStudyGroup" parameterType="studyGroup">
-		INSERT INTO
-		STUDYGROUP
-		(
-		SG_NO,
-		SG_NAME,
-		SG_GOAL,
-		SG_CONTENT,
-		SG_OWNER_NICK,
-		SG_MEMBER_NICK,
-		SG_MAX,
-		SG_CATEGORY,
-		SG_LOCATION
-		)
-		VALUES
-		(
-		SEQ_SG_NO.NEXTVAL,
-		#{sgName},
-		#{sgGoal},
-		#{sgContent},
-		#{sgOwnerNick},
-		#{sgOwnerNick},
-		#{sgMax},
-		#{sgCategory},
-		#{sgLocation}
-		)
-	</insert>
+      INSERT INTO
+      STUDYGROUP
+      (
+      SG_NO,
+      SG_NAME,
+      SG_GOAL,
+      SG_CONTENT,
+      SG_OWNER_NICK,
+      SG_MAX,
+      SG_CATEGORY,
+      SG_LOCATION
+      )
+      VALUES
+      (
+      SEQ_SG_NO.NEXTVAL,
+      #{sgName},
+      #{sgGoal},
+      #{sgContent},
+      #{sgOwnerNick},
+      #{sgMax},
+      #{sgCategory},
+      #{sgLocation}
+      )
+   </insert>
 
 	<!-- 구대영 추가 -->
 	<select id="studyGroupDetail" resultType="studyGroup">

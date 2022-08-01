@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.checkmate.common.model.vo.PageInfo;
 import com.kh.checkmate.common.template.Pagination;
+import com.kh.checkmate.member.model.service.MemberService;
 import com.kh.checkmate.member.model.vo.Member;
 import com.kh.checkmate.studyGroup.model.service.StudyGroupService;
 import com.kh.checkmate.studyGroup.model.vo.StudyGroup;
@@ -40,6 +41,9 @@ public class StudyGroupController {
 	
 	@Autowired
 	private StudyGroupMemberController studyGroupMemeberController;
+	
+	@Autowired
+	private MemberService memberService;
 
 	@RequestMapping("studyGroupExploration.sg")
 	public String studyGroupExploration() {
@@ -97,7 +101,15 @@ public class StudyGroupController {
 		int memberCount = studyGroupMemberService.memberCount(sgNo);
 		model.addAttribute("studyGroupMember", studyGroupMember);
 		model.addAttribute("memberCount", memberCount);
-	
+		
+		//김승현
+		Member member2 = memberService.userProfile(sgNo);
+		String [] userAddress  = member2.getUserAddress().split(" ");
+		String userfullAddress = userAddress[0]+" "+userAddress[1];
+		
+		member2.setUserAddress(userfullAddress);
+		model.addAttribute("member2",member2);
+	 
 		return "studyGroup/studyGroupDetail";
 	}
 	

@@ -70,6 +70,10 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.myPage",m);
 	}
 
+	public Member userProfile(SqlSessionTemplate sqlSession, int sgNo) {
+		return sqlSession.selectOne("memberMapper.userProfile",sgNo);
+	}
+
 	
 
 }

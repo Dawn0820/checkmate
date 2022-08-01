@@ -62,7 +62,7 @@
 			<tbody>
 				<tr>
 					<td>팀장</td>
-					<td>${studyGroup.sgOwnerNick}</td>
+					<td><a id="ownerNick" href="#userModal" data-bs-toggle="modal">${studyGroup.sgOwnerNick}</a></td>
 				</tr>
 				<tr>
 					<td>모집인원</td>
@@ -338,6 +338,31 @@
 
 
 	</div>
+	
+	<!-- 모달 -->
+	<div class="modal" id="userModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+   
+
+      <!-- Modal body -->
+      <div class="modal-body">
+      	<div align="center"><h3>팀장 프로필</h3></div>
+      	<br>
+        <div id="image_container" align="center"><img id="userProfile" src="${member2.userChangeProfile}"></div>
+        <br><br>
+		<div align="center">${member2.userNick}</div>
+		<br>
+		<div align="center">${member2.userAddress }</div>
+		<br>
+		<div align="center"><a herf="#" type="button">메시지보내기</a></div>
+      </div>
+
+     
+    </div>
+  </div>
+</div>
 
 	<script>
 		function studyGroupList() {
@@ -433,6 +458,8 @@
 							}
 					})
 		})
+		
+		
 	</script>
 
 	<div class="">

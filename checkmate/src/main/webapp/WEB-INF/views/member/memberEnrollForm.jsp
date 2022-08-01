@@ -86,7 +86,7 @@
         border:none;
         color:white;
         border-radius: 5px;
-        width: 100px;
+        width: 110px;
         font-size: 14pt;       
     }
     .checkBtn:hover{

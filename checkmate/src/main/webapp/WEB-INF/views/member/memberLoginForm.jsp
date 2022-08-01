@@ -123,7 +123,7 @@
     	function kakaoLogin(){
     		
         	window.Kakao.Auth.login({
-        		scope:'profile_nickname,profile_image,account_email',
+        		scope:'account_email',
         		success: function(authObj){
         			console.log(authObj);
         			window.Kakao.API.request({
@@ -131,12 +131,6 @@
         				success: res => {
         					const kakao_account = res.kakao_account;
         					const kEmail = res.kakao_account.email;
-        					const KName = res.properties.nickname;
-        					const kProfile = res.properties.profile_image;
-        					console.log(kEmail);
-        					console.log(KName);
-        					console.log(kProfile);
-        					console.log(kakao_account);
         					$.ajax({
                                 url : "kakaoLogin.me",
                                 data : {
@@ -152,13 +146,10 @@
                                 	}
                                     console.log("성공");
                                 },
-                                error : function(){
-                                	console.log(result)
+                                error : function(){                                	
                                     console.log("실패");
                                 }
-                            });
-        							
-        					
+                            });		
         				}
         			});
         		}

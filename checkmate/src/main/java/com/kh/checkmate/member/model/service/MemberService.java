@@ -37,4 +37,6 @@ public interface MemberService {
 	int updatePwd(Member m);	
 	
 	Member myPage(Member m);
+
+	Member userProfile(int sgNo);
 }

@@ -125,7 +125,7 @@ public class MemberController {
 			}		
 		}else {
 			int result = memberService.insertMember(m);		
-			System.out.println(m);
+
 			if(result>0) {				
 				session.setAttribute("alertMsg", "회원가입 성공");
 				return "redirect:/";
@@ -275,6 +275,13 @@ public class MemberController {
 		System.out.println(result);
 		String a = String.valueOf(result);
 		return a;
+	}
+	
+	@RequestMapping("test.me")
+	public String test(String userNick,String sgNo,Model model) {
+		System.out.println(userNick);
+		System.out.println(sgNo);
+		return "studyGroup/studyGroupDetail?sgNo="+sgNo;
 	}
 	
 	

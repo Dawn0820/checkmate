@@ -161,6 +161,13 @@
 		WHERE USER_ID = #{userId}
 		AND USER_STATUS = 'Y'		
 	</select>
+	
+	<select id="userProfile" resultMap="memberResultSet">
+		SELECT USER_NICK,USER_ADDRESS,USER_CHANGE_PROFILE
+		FROM MEMBER
+		JOIN STUDYGROUP ON(USER_NICK = SG_OWNER_NICK)
+		WHERE SG_NO = #{sgNo}
+	</select>
 
 	
 </mapper>
