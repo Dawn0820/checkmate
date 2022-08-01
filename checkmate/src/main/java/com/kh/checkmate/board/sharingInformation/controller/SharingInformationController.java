@@ -73,15 +73,20 @@ public class SharingInformationController {
 
 	@RequestMapping("detail.si")
 	public ModelAndView selectBoard(int informationNo, ModelAndView mv) {
-		int result = sharingInformationService.increaseCount(informationNo);
-		
-		if (result > 0) {
-			SharingInformation b = sharingInformationService.selectBoard(informationNo);
-			mv.addObject("b", b).setViewName("board/sharingInformation/siDetailView");
-		} else {
-			mv.addObject("errorMsg", "게시글 조회 실패").setViewName("common/errorPage");
-		}
-		return mv;
+			int result = sharingInformationService.increaseCount(informationNo);
+			
+			if (result > 0) {
+				ArrayList<SharingInformation> boardList = sharingInformationService.topBoard();
+				ArrayList<SharingInformation> replyList = sharingInformationService.topReply();
+				SharingInformation b = sharingInformationService.selectBoard(informationNo);
+				mv.addObject("b", b);
+				mv.addObject("boardList", boardList);
+				mv.addObject("replyList", replyList);
+				mv.setViewName("board/sharingInformation/siDetailView");
+			} else {
+				mv.addObject("errorMsg", "게시글 조회 실패").setViewName("common/errorPage");
+			}
+			return mv;
 	}
 	
 	@RequestMapping("delete.si")
@@ -191,6 +196,39 @@ public class SharingInformationController {
 		Reply checkNo = sharingInformationService.checkNo(r);
 		r.setRefUno(checkNo.getRefUno());
 		int result = sharingInformationService.insertReply(r);
+		
+		String ans="";
+		
+		if(result>0) { //성공
+			ans="Y";
+		}else {//실패 
+			ans="N";
+		}
+		return ans;
+	}
+	@RequestMapping(value="rdelete.si",produces="html/text; charset=UTF-8")
+	@ResponseBody
+	public String deleteReply(Reply r) {
+		Reply checkNo = sharingInformationService.checkNick(r);
+		r.setRefUno(checkNo.getRefUno());
+		int result = sharingInformationService.deleteReply(r);
+		
+		String ans="";
+		
+		if(result>0) { //성공
+			ans="Y";
+		}else {//실패 
+			ans="N";
+		}
+		return ans;
+	}
+	
+	@RequestMapping(value="redit.si",produces="html/text; charset=UTF-8")
+	@ResponseBody
+	public String editReply(Reply r) {
+		Reply checkNo = sharingInformationService.checkNick(r);
+		r.setRefUno(checkNo.getRefUno());
+		int result = sharingInformationService.editReply(r);
 		
 		String ans="";
 		

@@ -78,6 +78,36 @@ public class SharingInformationServiceImpl implements SharingInformationService{
 	public Reply checkNo(Reply r) {
 		return sid.checkNo(sqlSession,r);
 	}
+	@Override
+	public ArrayList<SharingInformation> topBoard() {
+		return sid.topBoard(sqlSession);
+	}
+	
+	@Override
+	public ArrayList<SharingInformation> topReply() {
+		return sid.topReply(sqlSession);
+	}
+
+	@Override
+	public int replyCount(Reply r) {
+		return sid.replyCount(sqlSession,r);
+	}
+
+	@Override
+	public int deleteReply(Reply r) {
+		return sid.deleteReply(sqlSession,r);
+	}
+
+	@Override
+	public int editReply(Reply r) {
+		return sid.editReply(sqlSession,r);
+	}
+	
+
+	@Override
+	public Reply checkNick(Reply r) {
+		return sid.checkNick(sqlSession,r);
+	}
 
 	
 	// 취업정보공유 게시판
@@ -130,6 +160,36 @@ public class SharingInformationServiceImpl implements SharingInformationService{
 	public int jobInsertReply(Reply r) {
 		return sid.jobInsertReply(sqlSession,r);
 	}
+	
+	@Override
+	public ArrayList<SharingInformation> jobTopBoard() {
+		return sid.jobTopBoard(sqlSession);
+	}
+
+	@Override
+	public ArrayList<SharingInformation> jobTopReply() {
+		return sid.jobTopReply(sqlSession);
+	}
+
+	@Override
+	public int jobReplyCount(Reply r) {
+		return sid.jobReplyCount(sqlSession,r);
+	}
+
+	@Override
+	public int jobDeleteReply(Reply r) {
+		return sid.jobDeleteReply(sqlSession,r);
+	}
+
+	@Override
+	public Reply jobCheckNick(Reply r) {
+		return sid.jobCheckNick(sqlSession,r);
+	}
+
+	@Override
+	public int jobEditReply(Reply r) {
+		return sid.jobEditReply(sqlSession,r);
+	}
 
 	//구대영
 	@Override
@@ -143,12 +203,12 @@ public class SharingInformationServiceImpl implements SharingInformationService{
 	}
 
 	@Override
-	public ArrayList<StudyGroup> siSearchList(PageInfo pi, String searchContent) {
+	public ArrayList<SharingInformation> siSearchList(PageInfo pi, String searchContent) {
 		return sid.siSearchList(sqlSession, pi, searchContent);
 	}
 
 	@Override
-	public ArrayList<StudyGroup> jsiSearchList(PageInfo pi, String searchContent) {
+	public ArrayList<SharingInformation> jsiSearchList(PageInfo pi, String searchContent) {
 		return sid.jsiSearchList(sqlSession, pi, searchContent);
 	}
 	

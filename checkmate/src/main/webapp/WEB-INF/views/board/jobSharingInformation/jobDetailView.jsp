@@ -17,12 +17,18 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="resources/css/styles.css" rel="stylesheet" />
 <style>
-ul{
-   list-style:none;
-   width: 100%;
-   text-align: left;
- }
-
+ul {
+	list-style: none;
+	width: 100%;
+	text-align: left;
+}
+img {
+	max-width: 100%;
+	height: auto;
+}
+#reply {
+	word-break: break-all;
+}
 </style>
 </head>
 <body style="padding-top: 3rem;">
@@ -40,8 +46,8 @@ ul{
 						<h1 class="fw-bolder mb-1">${b.informationTitle}</h1>
 						<!-- Post meta content-->
 						<div class="text-muted fst-italic mb-2"
-							style="word-break: break-all;">Writer : ${b.userNick} | Views
-							: ${b.informationView} | Date : ${b.informationDate}</div>
+							style="word-break: break-all;">Writer : ${b.userNick} |
+							Views : ${b.informationView} | Date : ${b.informationDate}</div>
 						<div class="text-muted fst-italic mb-2"
 							style="word-break: break-all;">
 							첨부파일 : <a href="${b.informationChangeName }"
@@ -55,12 +61,12 @@ ul{
 					<section class="mb-5" style="padding: 10px;">
 						<p class="fs-5 mb-4">${b.informationContent}</p>
 					</section>
-					
+
 					<c:if test="${loginUser.userId eq b.userId}">
-					<div class="btn-group">
-						<a class="btn btn-secondary" onclick="postFormSubmit(1)">글수정</a> <a
-							class="btn btn-secondary" onclick="postFormSubmit(2)">글삭제</a>
-					</div>
+						<div class="btn-group">
+							<a class="btn btn-secondary" onclick="postFormSubmit(1)">글수정</a>
+							<a class="btn btn-secondary" onclick="postFormSubmit(2)">글삭제</a>
+						</div>
 					</c:if>
 				</article>
 				<form id="postForm" method="post">
@@ -82,7 +88,6 @@ ul{
 								return false;
 							}
 						}
-
 					}
 				</script>
 
@@ -95,35 +100,183 @@ ul{
 							<form class="mb-4">
 								<div class="input-group mb-3">
 									<c:choose>
-  						  				<c:when test="${ not empty loginUser }">
-									<input type="text" class="form-control" id="insertContent"
-										placeholder="댓글을 입력 해주세요." aria-label="Recipient's username"
-										aria-describedby="button-addon2">
-									<button class="btn btn-outline-secondary" type="button"
-										id="button-addon2" onclick="addReply()">등록</button>
-									</c:when>
-  						  				<c:otherwise>	
-									<input type="text" class="form-control" id="insertContent"
-										placeholder="로그인이 필요합니다." aria-label="Recipient's username"
-										aria-describedby="button-addon2">
-									<button class="btn btn-outline-secondary disabled" type="button"
-										id="button-addon2" onclick="addReply()">등록</button>
-  						  				</c:otherwise>
+										<c:when test="${ not empty loginUser }">
+											<input type="text" class="form-control" id="insertContent"
+												placeholder="댓글을 입력 해주세요." aria-label="Recipient's username"
+												aria-describedby="button-addon2">
+											<button class="btn btn-outline-secondary" type="button"
+												id="button-addon2" onclick="addReply()">등록</button>
+										</c:when>
+										<c:otherwise>
+											<input type="text" class="form-control" id="insertContent"
+												placeholder="로그인이 필요합니다." aria-label="Recipient's username"
+												aria-describedby="button-addon2">
+											<button class="btn btn-outline-secondary disabled"
+												type="button" id="button-addon2" onclick="addReply()">등록</button>
+										</c:otherwise>
 									</c:choose>
 								</div>
 							</form>
-							<div id="reply">
-							
-							</div>
+							<div id="reply"></div>
+
+							<!-- 							<img src="resources/img/board/reply_edit.png" style="hieght:13px; width:13px;"> 수정 &nbsp;&nbsp; -->
+							<!-- 							<img src="resources/img/board/reply_remove.png" style="hieght:13px; width:13px;"> 삭제 -->
 						</div>
 					</div>
 				</section>
 			</div>
-			
+
+			<!-- Side widgets-->
+			<div class="col-lg-4">
+				<!-- Search widget-->
+				<form action="jobSearch.si" method="get">
+					<div class="card mb-4">
+						<div class="card-header">Search</div>
+						<div class="card-body">
+							<div class="input-group">
+								<input class="form-control" type="text" id="searchContent"
+									name="searchContent" placeholder="검색할 제목을 입력 해주세요."
+									aria-describedby="button-search" />
+								<button class="btn btn-primary" id="button-search" type="submit">검색</button>
+							</div>
+						</div>
+					</div>
+				</form>
+				<!-- Categories widget-->
+				<div class="card mb-4">
+					<div class="card-header">가장 많이 본 게시글 TOP 5</div>
+					<div class="card-body" style="padding-bottom: 0px;">
+						<ol class="" style="text-align: left;">
+							<c:forEach var="bl" items="${boardList }">
+								<li><a
+									href="jobDetail.si?informationNo=${bl.informationNo}">${bl.informationTitle }</a></li>
+							</c:forEach>
+						</ol>
+					</div>
+				</div>
+
+				<div class="card mb-4">
+					<div class="card-header">댓글이 가장 많은 게시글 TOP 5</div>
+					<div class="card-body" style="padding-bottom: 0px;">
+						<ol class="" style="text-align: left;">
+							<c:forEach var="rl" items="${replyList }">
+								<li><a
+									href="jobDetail.si?informationNo=${rl.informationNo}">${rl.informationTitle }</a></li>
+							</c:forEach>
+						</ol>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="modal fade" id="editModal" data-bs-backdrop="static"
+				data-bs-keyboard="false" tabindex="-1"
+				aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="staticBackdropLabel">댓글 수정</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body"></div>
+						<div class="input-group mb-3">
+							<span class="input-group-text">닉네임 : </span> <input type="text"
+								class="form-control" id="editCheckId"
+								aria-describedby="basic-addon3">
+						</div>
+						<div class="mb-3">
+							<label for="message-text" class="col-form-label">원본 댓글
+								내용을 복사하여 붙여넣기 하세요.</label>
+							<textarea class="form-control" id="editCheckContent"></textarea>
+						</div>
+
+						<div class="mb-3">
+							<label for="message-text" class="col-form-label">수정할 댓글
+								내용을 입력 하세요.</label>
+							<textarea class="form-control" id="editContent"></textarea>
+						</div>
+
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary"
+								onclick="editReply(editCheckId,editCheckContent,editContent);">수정하기</button>
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">아니요</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="modal fade" id="removeModal" data-bs-backdrop="static"
+				data-bs-keyboard="false" tabindex="-1"
+				aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="staticBackdropLabel">댓글 삭제</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body"></div>
+						<div class="input-group mb-3">
+							<span class="input-group-text">닉네임 : </span> <input type="text"
+								class="form-control" id="removeCheckId"
+								aria-describedby="basic-addon3">
+						</div>
+						<div class="mb-3">
+							<label for="message-text" class="col-form-label">삭제할 댓글
+								내용을 복사하여 붙여넣기 하세요.</label>
+							<textarea class="form-control" id="removeCheckContent"></textarea>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary"
+								onclick="deleteReply(removeCheckId,removeCheckContent);">삭제하기</button>
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">아니요</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<script>
 		    	$(function(){
 		    		selectReplyList();
 		    	})
+		    	
+		    	function deleteReply(id, content){
+		    		$.ajax({
+		    			url : "jobrdelete.si",
+		    			data : {
+		    				replyWriter : id.value,
+		    				replyContent : content.value,
+		    			},
+		    			success : function(result){
+		    				selectReplyList();
+		    			},
+		    			error : function(){
+		    				console.log("통신실패");
+		    			}
+		    		})
+		    	}
+		    	
+		    	function editReply(id, content, editContent){
+		    		$.ajax({
+		    			url : "jobredit.si",
+		    			data : {
+		    				replyWriter : id.value,
+		    				replyContent : content.value,
+		    				editContent : editContent.value,
+		    			},
+		    			success : function(result){
+		    				selectReplyList();
+		    			},
+		    			error : function(){
+		    				console.log("통신실패");
+		    			}
+		    		})
+		    	}
 		    	
 		    	function addReply(){
     		
@@ -159,38 +312,75 @@ ul{
 		    				informationNo : ${b.informationNo}
 		    			},
 		    			success : function(result){
-		    				console.log(result);
 							
 							var resultStr="";
+							var edit_resultStr="";
+							var final_resultStr="";
+							var nickCheck="true";
+							var lUser="${loginUser.userNick}";
 							
 							for(var i=0; i<result.length;i++){
-								
-							resultStr+= "<div class=\"d-flex\">" +
-											"<div class=\"flex-shrink-0\">" + 
-												"<img class=\"rounded-circle\" src=\"https://dummyimage.com/50x50/ced4da/6c757d.jpg\" alt=\"...\" />" +
-											"</div>" + 
-											
-											"<ul>" +
-											"<li>" +
-											
-											"<div style=\"width:100%; height:30px;\">" +
-												"<div class=\"fw-bold\" style=\"float:left\">" + result[i].replyWriter + "</div>" +
-												"<div  style=\"font-size:2px; float:right; padding-right:20px;\">" +
-												result[i].replyDate +
-												"</div>" +
-											"</div>" +
-											
-											"</li>" +
-											"<li>" +
-												"<span id=\"content\"> " + result[i].replyContent + "</span>" +
-											
-												"</li>" +
-												"</ul>" +
-												
+							var x = result[i].replyWriter;
+							
+							if(lUser != result[i].replyWriter) {
+								resultStr+= "<div class=\"d-flex\">" +
+									"<div class=\"flex-shrink-0\">" + 
+										"<img class=\"rounded-circle\" src=\"" + result[i].replyProfile + "\" alt=\"...\" style=\"height:50px; width:50px;\"/>" +
+									"</div>" + 
+									
+									"<ul>" +
+									"<li>" +
+									
+									"<div style=\"width:100%; height:30px;\">" +
+										"<div class=\"fw-bold\" style=\"float:left\">" + result[i].replyWriter + "</div>" +
+										"<div  style=\"font-size:2px; float:right; padding-right:20px;\">" +
+										result[i].replyDate + "&nbsp;&nbsp;" +
 										"</div>" +
-										"<br>"
+									"</div>" +
+									"</li>" +
+									"<li>" +
+										"<span id=\"content\"> " + result[i].replyContent + "</span>" +
+									
+										"</li>" +
+										"</ul>" +
+										
+								"</div>" +
+								"<br>"
+							} else if(lUser == result[i].replyWriter) {
+								resultStr+= "<div class=\"d-flex\">" +
+								"<div class=\"flex-shrink-0\">" + 
+									"<img class=\"rounded-circle\" src=\"" + result[i].replyProfile + "\" alt=\"...\" style=\"height:50px; width:50px;\"/>" +
+								"</div>" + 
+								
+								"<ul>" +
+								"<li>" +
+								
+								"<div style=\"width:100%; height:30px;\">" +
+									"<div class=\"fw-bold\" style=\"float:left\">" + result[i].replyWriter + "</div>" +
+									"<div id=\"replyCheck\" style=\"font-size:2px; float:right; padding-right:20px;\">" +
+									result[i].replyDate + "&nbsp;&nbsp;" +
+// 									"<img id=\"editCheck\" src=\"resources/img/board/reply_edit.png\" style=\"hieght:18px; width:18px;\">"  + 
+									"<button type=\"button\" class=\"btn btn-secondary btn-sm\" data-bs-toggle=\"modal\" data-bs-target=\"#editModal\">" +
+									"수정" +
+									"</button>"+
+									"&nbsp;&nbsp;" +
+// 									"<img id=\"removeCheck\" src=\"resources/img/board/reply_remove.png\" style=\"hieght:18px; width:18px;\">"  + 
+									"<button type=\"button\" class=\"btn btn-secondary btn-sm\" data-bs-toggle=\"modal\" data-bs-target=\"#removeModal\">" +
+									"삭제" +
+									"</button>"+
+									"</div>" +
+								"</div>" +
+								"</li>" +
+								"<li>" +
+									"<span id=\"content\"> " + result[i].replyContent + "</span>" +
+								
+									"</li>" +
+									"</ul>" +
+									
+							"</div>" +
+							"<br>"
 							}
-						
+						}
 		    				$("#reply").html(resultStr);
 		    				$("#rcount").text(result.length);
 		    			},
@@ -201,47 +391,6 @@ ul{
 		    	}
 		    </script>
 
-
-
-
-			<!-- Side widgets-->
-			<div class="col-lg-4">
-				<!-- Search widget-->
-				<div class="card mb-4">
-					<div class="card-header">Search</div>
-					<div class="card-body">
-						<div class="input-group">
-							<input class="form-control" type="text"
-								placeholder="Enter search term..."
-								aria-label="Enter search term..."
-								aria-describedby="button-search" />
-							<button class="btn btn-primary" id="button-search" type="button">Go!</button>
-						</div>
-					</div>
-				</div>
-				<!-- Categories widget-->
-				<div class="card mb-4">
-					<div class="card-header">Categories</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-sm-6">
-								<ul class="list-unstyled mb-0">
-									<li><a href="#!">Web Design</a></li>
-									<li><a href="#!">HTML</a></li>
-									<li><a href="#!">Freebies</a></li>
-								</ul>
-							</div>
-							<div class="col-sm-6">
-								<ul class="list-unstyled mb-0">
-									<li><a href="#!">JavaScript</a></li>
-									<li><a href="#!">CSS</a></li>
-									<li><a href="#!">Tutorials</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 	<!-- Bootstrap core JS-->

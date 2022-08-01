@@ -68,6 +68,30 @@ public class SharingInformationDao {
 		return sqlSession.insert("sharingInformationMapper.insertReply",r);
 	}
 	
+	public ArrayList<SharingInformation> topBoard(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("sharingInformationMapper.topBoard");
+	}
+	
+	public ArrayList<SharingInformation> topReply(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("sharingInformationMapper.topReply");
+	}
+
+	public int replyCount(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.update("sharingInformationMapper.replyCount",r);
+	}
+	
+	public int deleteReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.update("sharingInformationMapper.deleteReply",r);
+	}
+	
+	public int editReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.update("sharingInformationMapper.editReply",r);
+	}
+	
+	public Reply checkNick(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.selectOne("sharingInformationMapper.checkNick", r);
+	}
+	
 	
 	// 취업정보공유 게시판
 	public int jobSelectListCount(SqlSessionTemplate sqlSession) {
@@ -119,6 +143,30 @@ public class SharingInformationDao {
 	public int jobInsertReply(SqlSessionTemplate sqlSession, Reply r) {
 		return sqlSession.insert("jobSharingInformationMapper.jobInsertReply",r);
 	}
+	
+	public ArrayList<SharingInformation> jobTopBoard(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("jobSharingInformationMapper.jobTopBoard");
+	}
+
+	public ArrayList<SharingInformation> jobTopReply(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("jobSharingInformationMapper.jobTopReply");
+	}
+
+	public int jobReplyCount(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.update("jobSharingInformationMapper.jobReplyCount",r);
+	}
+
+	public int jobDeleteReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.update("jobSharingInformationMapper.jobDeleteReply",r);
+	}
+
+	public Reply jobCheckNick(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.selectOne("jobSharingInformationMapper.jobCheckNick", r);
+	}
+
+	public int jobEditReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.update("jobSharingInformationMapper.jobEditReply",r);
+	}
 
 	//구대영
 	public int searchListCount(SqlSessionTemplate sqlSession, String searchContent) {
@@ -129,7 +177,7 @@ public class SharingInformationDao {
 		return sqlSession.selectOne("jobSharingInformationMapper.searchListCount2", searchContent);
 	}
 
-	public ArrayList<StudyGroup> siSearchList(SqlSessionTemplate sqlSession, PageInfo pi, String searchContent) {
+	public ArrayList<SharingInformation> siSearchList(SqlSessionTemplate sqlSession, PageInfo pi, String searchContent) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 
@@ -138,7 +186,7 @@ public class SharingInformationDao {
 		return (ArrayList) sqlSession.selectList("sharingInformationMapper.siSearchList", searchContent, rowBounds);
 	}
 
-	public ArrayList<StudyGroup> jsiSearchList(SqlSessionTemplate sqlSession, PageInfo pi, String searchContent) {
+	public ArrayList<SharingInformation> jsiSearchList(SqlSessionTemplate sqlSession, PageInfo pi, String searchContent) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 
@@ -147,4 +195,5 @@ public class SharingInformationDao {
 		return (ArrayList) sqlSession.selectList("jobSharingInformationMapper.jsiSearchList", searchContent, rowBounds);
 	}
 
+	
 }

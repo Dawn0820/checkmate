@@ -71,15 +71,20 @@ public class JobSharingInformationController {
 
 	@RequestMapping("jobDetail.si")
 	public ModelAndView jobSelectBoard(int informationNo, ModelAndView mv) {
-		int result = sharingInformationService.jobIncreaseCount(informationNo);
-		
-		if (result > 0) {
-			SharingInformation b = sharingInformationService.jobSelectBoard(informationNo);
-			mv.addObject("b", b).setViewName("board/jobSharingInformation/jobDetailView");
-		} else {
-			mv.addObject("errorMsg", "게시글 조회 실패").setViewName("common/errorPage");
-		}
-		return mv;
+			int result = sharingInformationService.jobIncreaseCount(informationNo);
+			
+			if (result > 0) {
+				ArrayList<SharingInformation> boardList = sharingInformationService.jobTopBoard();
+				ArrayList<SharingInformation> replyList = sharingInformationService.jobTopReply();
+				SharingInformation b = sharingInformationService.jobSelectBoard(informationNo);
+				mv.addObject("b", b);
+				mv.addObject("boardList", boardList);
+				mv.addObject("replyList", replyList);
+				mv.setViewName("board/jobSharingInformation/jobDetailView");
+			} else {
+				mv.addObject("errorMsg", "게시글 조회 실패").setViewName("common/errorPage");
+			}
+			return mv;
 	}
 	
 	@RequestMapping("jobDelete.si")
@@ -190,6 +195,39 @@ public class JobSharingInformationController {
 		Reply checkNo = sharingInformationService.checkNo(r);
 		r.setRefUno(checkNo.getRefUno());
 		int result = sharingInformationService.jobInsertReply(r);
+		
+		String ans="";
+		
+		if(result>0) { //성공
+			ans="Y";
+		}else {//실패 
+			ans="N";
+		}
+		return ans;
+	}
+	@RequestMapping(value="jobrdelete.si",produces="html/text; charset=UTF-8")
+	@ResponseBody
+	public String jobDeleteReply(Reply r) {
+		Reply checkNo = sharingInformationService.jobCheckNick(r);
+		r.setRefUno(checkNo.getRefUno());
+		int result = sharingInformationService.jobDeleteReply(r);
+		
+		String ans="";
+		
+		if(result>0) { //성공
+			ans="Y";
+		}else {//실패 
+			ans="N";
+		}
+		return ans;
+	}
+	
+	@RequestMapping(value="jobredit.si",produces="html/text; charset=UTF-8")
+	@ResponseBody
+	public String jobEditReply(Reply r) {
+		Reply checkNo = sharingInformationService.jobCheckNick(r);
+		r.setRefUno(checkNo.getRefUno());
+		int result = sharingInformationService.jobEditReply(r);
 		
 		String ans="";
 		

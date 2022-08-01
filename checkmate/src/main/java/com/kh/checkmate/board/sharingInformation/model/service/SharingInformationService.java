@@ -41,7 +41,12 @@ public interface SharingInformationService {
 	//댓글 작성
 	public abstract int insertReply(Reply r);
 	Reply checkNo(Reply r);
-	
+	ArrayList<SharingInformation> topBoard();
+	ArrayList<SharingInformation> topReply();
+	int replyCount(Reply r);
+	int deleteReply(Reply r);
+	int editReply(Reply r);
+	Reply checkNick(Reply r);
 	
 	// 취업지원정보공유 게시판
 	int jobSelectListCount();
@@ -54,10 +59,16 @@ public interface SharingInformationService {
 	ArrayList<SharingInformation> jobSearchList(PageInfo pi, SharingInformation b);
 	ArrayList<Reply> jobSelectReplyList(int informationNo);
 	int jobInsertReply(Reply r);
+	ArrayList<SharingInformation> jobTopBoard();
+	ArrayList<SharingInformation> jobTopReply();
+	int jobReplyCount(Reply r);
+	int jobDeleteReply(Reply r);
+	Reply jobCheckNick(Reply r);
+	int jobEditReply(Reply r);
 	
 	//구대영
 	int searchListCount(String searchContent);
 	int searchListCount2(String searchContent);
-	ArrayList<StudyGroup> siSearchList(PageInfo pi, String searchContent);
-	ArrayList<StudyGroup> jsiSearchList(PageInfo pi, String searchContent);
+	ArrayList<SharingInformation> siSearchList(PageInfo pi, String searchContent);
+	ArrayList<SharingInformation> jsiSearchList(PageInfo pi, String searchContent);
 }
