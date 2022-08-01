@@ -16,6 +16,7 @@
 		<typeAlias type="com.kh.checkmate.studyGroupMember.model.vo.StudyGroupMember" alias="studyGroupMember" />
 		<typeAlias type="com.kh.checkmate.reservation.model.vo.Reservation" alias="reservation"/>
 		<typeAlias type="com.kh.checkmate.board.cs.model.vo.notice" alias="notice"/>
+		<typeAlias type="com.kh.checkmate.board.faq.model.vo.faq" alias="faq"/>
 	</typeAliases>
 			
 	<mappers>
@@ -31,5 +32,6 @@
 		<mapper resource="/mappers/studyGroupMember/studyGroupMember-mapper.xml" />
 		<mapper resource="/mappers/reservation/reservation-mapper.xml"/>
 		<mapper resource="/mappers/notice/notice-mapper.xml"/>
+		<mapper resource="/mappers/faq/faq-mapper.xml"/>
 	</mappers>
 </configuration>

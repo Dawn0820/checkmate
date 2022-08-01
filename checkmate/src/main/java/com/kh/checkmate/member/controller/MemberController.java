@@ -55,10 +55,11 @@ public class MemberController {
 		
 		Member loginUser = memberService.loginMember(m);
 		
-		String userNick = loginUser.getUserNick();
+		
 
 		
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getUserPw(), loginUser.getUserPw())) {
+			String userNick = loginUser.getUserNick();
 			session.setAttribute("loginUser", loginUser);
 			session.setAttribute("userNick", userNick);
 			

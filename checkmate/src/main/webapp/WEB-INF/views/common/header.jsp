@@ -101,6 +101,7 @@
 							<li><a href="list.si">정보공유 게시판</a></li>
 							<li><a href="jobList.si">취업정보 게시판</a></li>
 							<li><a href="locationMap.lo">내 주변 사용자 보기</a></li>
+							<li><a href="calender.ca">캘린더</a>
 						</ul></li>
 
 					<c:choose>
