@@ -298,6 +298,7 @@ hr {
 				</div>
 			</div>
 		</div>
+		</div>
 		<!-- Modal -->
 		<div class="modal fade" id="myModal2" role="dialog">
 			<div class="modal-dialog modal-dialog-centered">

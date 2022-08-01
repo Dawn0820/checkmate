@@ -126,6 +126,7 @@
 											</c:forEach>
 										</ul></li>
 									<li><a href="studyGroupEnrollForm.sg">스터디 생성 </a></li>
+									<li><a href="reservation.ro">스터디 센터 예약</a></li>
 								</ul></li>
 							<li class="dropdown"><a href="#"><span>메세지</span> <i
 									class="bi bi-chevron-down"></i></a>
