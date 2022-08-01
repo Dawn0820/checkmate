@@ -61,10 +61,20 @@
 					</script>
 				</div>
 			</div>
-			<form class="row g-3 justify-content-center" action="search.si" method="get">
+			<form class="row g-3 justify-content-center" action="search.si"
+				method="get">
 				<div class="col-3" style="float: center;">
-					<input type="text" class="form-control" id="searchContent" name="searchContent"
-						placeholder="검색할 내용을 입력 해주세요.">
+					<c:choose>
+						<c:when test="${empty searchContent}">
+							<input type="text" class="form-control" id="searchContent"
+								name="searchContent" placeholder="검색할 내용을 입력 해주세요.">
+						</c:when>
+						<c:otherwise>
+							<input type="text" class="form-control" id="searchContent"
+								name="searchContent" placeholder="검색할 내용을 입력 해주세요."
+								value="${searchContent }">
+						</c:otherwise>
+					</c:choose>
 				</div>
 				<div class="col-auto">
 					<button type="submit" class="btn btn-secondary mb-3">검색</button>
@@ -74,24 +84,62 @@
 			<nav aria-label="Page navigation example">
 				<ul class="pagination justify-content-center">
 					<c:choose>
-						<c:when test="${ pi.currentPage eq 1 }">
-							<li class="page-item"><a class="page-link text-dark"
-								href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+						<c:when test="${empty searchContent}">
+							<c:choose>
+								<c:when test="${ pi.currentPage eq 1 }">
+									<li class="page-item"><a class="page-link text-dark"
+										href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link text-dark"
+										href="list.si?cpage=${pi.currentPage-1 }"
+										aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								</c:otherwise>
+							</c:choose>
+							</a>
+							</li>
+
+							<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+								<li class="page-item"><a class="page-link text-dark"
+									href="list.si?cpage=${p }">${p }</a></li>
+							</c:forEach>
+
+							<c:choose>
+								<c:when test="${pi.currentPage eq pi.maxPage }">
+									<li class="page-item"><a class="page-link text-dark"
+										href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+									</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link text-dark"
+										href="list.si?cpage=${pi.currentPage+1 }" aria-label="Next">
+											<span aria-hidden="true">&raquo;</span>
+									</a></li>
+								</c:otherwise>
+							</c:choose>
 						</c:when>
+
 						<c:otherwise>
-							<li class="page-item"><a class="page-link text-dark"
-								href="list.si?cpage=${pi.currentPage-1 }"
-								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-						</c:otherwise>
-					</c:choose>
-					</a>
-					</li>
+							<c:choose>
+								<c:when test="${ pi.currentPage eq 1 }">
+									<li class="page-item"><a class="page-link text-dark"
+										href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link text-dark"
+										href="siSearchList.si?searchContent=${searchContent }&cpage=${pi.currentPage-1 }"
+										aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								</c:otherwise>
+							</c:choose>
+							</a>
+							</li>
 
-					<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
-						<li class="page-item"><a class="page-link text-dark"
-							href="list.si?cpage=${p }">${p }</a></li>
-					</c:forEach>
+							<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+								<li class="page-item"><a class="page-link text-dark"
+									href="siSearchList.si?searchContent=${searchContent }&cpage=${p }">${p }</a></li>
+							</c:forEach>
 
+<<<<<<< HEAD
 					<c:choose>
 						<c:when test="${pi.currentPage eq pi.maxPage }">
 							<li class="page-item"><a class="page-link text-dark"
@@ -103,11 +151,32 @@
 								href="list.si?cpage=${pi.currentPage+1 }"
 								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 							</a></li>
+=======
+							<c:choose>
+								<c:when test="${pi.currentPage eq pi.maxPage }">
+									<li class="page-item"><a class="page-link text-dark"
+										href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+									</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link text-dark"
+										href="siSearchList.si?searchContent=${searchContent }&cpage=${pi.currentPage+1 }"
+										aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+									</a></li>
+
+								</c:otherwise>
+							</c:choose>
+>>>>>>> branch 'main' of https://github.com/Dawn0820/checkmate.git
 						</c:otherwise>
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'main' of https://github.com/Dawn0820/checkmate.git
 					</c:choose>
+
 				</ul>
 			</nav>
-			
+
 			<c:if test="${ not empty loginUser }">
 				<div class="btn-group">
 					<a href="enrollForm.si" class="btn btn-secondary">글쓰기</a>
