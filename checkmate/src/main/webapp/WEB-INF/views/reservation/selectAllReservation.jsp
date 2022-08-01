@@ -26,24 +26,7 @@
     <!-- ===============================================-->
 
     <link href="resources/css/theme1.css" rel="stylesheet" />
-    <style>
-        #boardList {text-align:center;}
-            #boardList>tbody>tr:hover {cursor:pointer;}
-    
-            #pagingArea {width:fit-content; margin:auto;}
-            
-            #searchForm {
-                width:80%;
-                margin:auto;
-            }
-            #searchForm>* {
-                float:left;
-                margin:5px;
-            }
-            .select {width:20%;}
-            .text {width:53%;}
-            .searchBtn {width:20%;}
-    </style>
+
   </head>
 
 
