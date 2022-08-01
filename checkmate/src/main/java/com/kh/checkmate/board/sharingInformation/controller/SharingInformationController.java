@@ -185,8 +185,8 @@ public class SharingInformationController {
 	@RequestMapping(value="rlist.si",produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public String selectReplyList(int informationNo) {
-		
 		ArrayList<Reply> list = sharingInformationService.selectReplyList(informationNo);
+		System.out.println(list);
 		return new Gson().toJson(list);
 	}
 	
